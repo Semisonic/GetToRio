@@ -45234,21 +45234,24 @@
                 }, _["default"].createElement("img", {
                     src: n(594)("./icon-" + o.mute + ".svg"),
                     alt: ""
-                })))) : null , _["default"].createElement("video", {
+                })))) : null , 
+                    // RioHack
+
+                    /*_["default"].createElement("video", {
                     ref: "video",
                     className: E["default"].video,
                     controls: !0,
                     autoPlay: !0
                 }, _["default"].createElement("source", {
-                    // RioHack
-                    // removing the video
-
-                    // src: a,
-                    src: "",
-                    // ~RioHack
-                    
+                    src: a,
                     type: "video/mp4"
-                }), _["default"].createElement("p", null , "Your user agent does not support the HTML5 Video element.")))
+                }), _["default"].createElement("p", null , "Your user agent does not support the HTML5 Video element."))*/
+
+                    null
+
+                    // ~RioHack
+
+                )
             }
         }]),
         t
