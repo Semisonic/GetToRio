@@ -45224,6 +45224,7 @@
                   , o = {
                     mute: r ? "sound-02" : "sound-01"
                 };
+                
                 return _["default"].createElement("div", {
                     className: E["default"].block
                 }, "IOS" !== t ? _["default"].createElement("ul", {
@@ -45239,7 +45240,13 @@
                     controls: !0,
                     autoPlay: !0
                 }, _["default"].createElement("source", {
-                    src: a,
+                    // RioHack
+                    // removing the video
+
+                    // src: a,
+                    src: "",
+                    // ~RioHack
+                    
                     type: "video/mp4"
                 }), _["default"].createElement("p", null , "Your user agent does not support the HTML5 Video element.")))
             }
