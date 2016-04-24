@@ -31576,7 +31576,12 @@
                 angle: e.data.angle,
                 wind: D.wind.force,
                 windDirection: D.wind.direction
-            }),
+            });
+
+            // RioHack
+            // fixing the trajectory
+            D.trajectory = ["D1", "D2", "D3", "D4", "D5"];
+
             b.GetToRioAPI.gameFinish({
                 token: D.token,
                 result: {
