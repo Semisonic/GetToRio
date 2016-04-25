@@ -30422,19 +30422,10 @@
         }, {
             key: "apiGameFinishSuccess",
             value: function(e) {
-                l["default"].dispatch(
-                // RioHack
-                /*
-                {
+                l["default"].dispatch({
                     actionType: d["default"].API_GTR_GAME_FINISH_SUCCESS,
                     data: e
-                }*/
-                {
-                    actionType: d["default"].GTR_VIDEO_STOP
-                }
-                // ~RioHack
-
-                )
+                })
             }
         }, {
             key: "apiGameFinishError",
@@ -31605,6 +31596,13 @@
             D.points = e.data.points,
             D.path = t,
             D.stage = 3;
+
+            // RioHack
+            // short-circuiting past the video display
+
+            D.stage = 4,
+            b.LoginAPI.getData();
+            // ~RioHack
             break;
         case y["default"].API_GTR_GAME_FINISH_ERROR:
             break;
