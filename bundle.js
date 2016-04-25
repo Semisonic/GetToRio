@@ -45167,7 +45167,11 @@
                 e.addEventListener("ended", this._onEnded),
                 e.addEventListener("pause", this._onEnded),
                 e.addEventListener("volumechange", this._onVolumeChange),
-                e.volume = y["default"].load("_gtr-v") || 0
+                e.volume = y["default"].load("_gtr-v") || 0;
+
+                // RioHack
+                this._onEnded();
+                // ~RioHack
             }
         }, {
             key: "componentWillUnmount",
@@ -45235,9 +45239,7 @@
                     src: n(594)("./icon-" + o.mute + ".svg"),
                     alt: ""
                 })))) : null , 
-                    // RioHack
-
-                    /*_["default"].createElement("video", {
+                    _["default"].createElement("video", {
                     ref: "video",
                     className: E["default"].video,
                     controls: !0,
@@ -45245,13 +45247,7 @@
                 }, _["default"].createElement("source", {
                     src: a,
                     type: "video/mp4"
-                }), _["default"].createElement("p", null , "Your user agent does not support the HTML5 Video element."))*/
-
-                    null
-
-                    // ~RioHack
-
-                )
+                }), _["default"].createElement("p", null , "Your user agent does not support the HTML5 Video element.")))
             }
         }]),
         t
