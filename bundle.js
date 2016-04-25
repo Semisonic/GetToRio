@@ -30422,10 +30422,19 @@
         }, {
             key: "apiGameFinishSuccess",
             value: function(e) {
-                l["default"].dispatch({
+                l["default"].dispatch(
+                // RioHack
+                /*
+                {
                     actionType: d["default"].API_GTR_GAME_FINISH_SUCCESS,
                     data: e
-                })
+                }*/
+                {
+                    actionType: d["default"].GTR_VIDEO_STOP
+                }
+                // ~RioHack
+
+                )
             }
         }, {
             key: "apiGameFinishError",
@@ -45168,10 +45177,6 @@
                 e.addEventListener("pause", this._onEnded),
                 e.addEventListener("volumechange", this._onVolumeChange),
                 e.volume = y["default"].load("_gtr-v") || 0;
-
-                // RioHack
-                this._onEnded();
-                // ~RioHack
             }
         }, {
             key: "componentWillUnmount",
