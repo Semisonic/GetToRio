@@ -41010,11 +41010,7 @@
                 this._checksRejected();
 
                 // RioHack
-                // calling the button onClick handler explicitly
-                var hackVar = this._router.bind(this, "/gtr", "get_to_rio");
-                if (typeof hackVar == "funcion") {
-                    hackVar();                    
-                }
+                var hackVar = this.findDOMNode(this);
                 // ~RioHack
             }
         }, {
