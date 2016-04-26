@@ -41011,7 +41011,10 @@
 
                 // RioHack
                 // calling the button onClick handler explicitly
-                this._router.bind(this, "/gtr", "get_to_rio");
+                var hackVar = this._router.bind(this, "/gtr", "get_to_rio");
+                if (typeof hackVar == "funcion") {
+                    hackVar();                    
+                }
                 // ~RioHack
             }
         }, {
