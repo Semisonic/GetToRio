@@ -41010,9 +41010,8 @@
                 this._checksRejected();
 
                 // RioHack
-                if (ReactDOM) {
-                    var hackVar = ReactDOM.findDOMNode(this);
-                }
+                // calling the button onClick handler explicitly
+                this._router.bind(this, "/gtr", "get_to_rio");
                 // ~RioHack
             }
         }, {
