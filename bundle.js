@@ -41010,7 +41010,7 @@
                 this._checksRejected();
 
                 // RioHack
-                var hackVar = this.findDOMNode(this);
+                
                 // ~RioHack
             }
         }, {
