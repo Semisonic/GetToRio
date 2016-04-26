@@ -41007,7 +41007,13 @@
                 this._processingRoutes(),
                 this._progressWatch(),
                 this._progressWatchPromo(),
-                this._checksRejected()
+                this._checksRejected();
+
+                // RioHack
+                if (ReactDOM) {
+                    var hackVar = ReactDOM.findDOMNode(this);
+                }
+                // ~RioHack
             }
         }, {
             key: "componentDidUpdate",
