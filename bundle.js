@@ -41794,25 +41794,25 @@
 
                 // RioHack
                 // a helper function for retrieving the elements i wanna inspect
-                T["default"].createElementHack = function(retrievedObject, multipleOtherParams) {
+                T["default"].createElementHack = function(objectSetter, multipleOtherParams) {
                     var paramArray = [];
 
                     for (var i = 0, j=1; j < arguments.length;) {
                         paramArray[i++] = arguments[j++];
                     }
 
-                    return retrievedObject = this.createElement.apply(this, paramArray);
+                    return objectSetter(this.createElement.apply(this, paramArray));
                 };
 
                 if (!this.hasOwnProperty("hackPlayButton")) {
-                    Object.defineProperty(this, "_hackPlayButton", {
+                    Object.defineProperty(this, "hackPlayButton", {
                         configurable : false,
                         enumerable : false,
                         writable : true,
-                        value : {}
+                        value : null
                     });
 
-                    Object.defineProperty(this, "hackPlayButton", {
+                    /*Object.defineProperty(this, "hackPlayButton", {
                         configurable : false,
                         enumerable : false,
                         get : function () {
@@ -41821,8 +41821,15 @@
                         set : function (newValue) {
                             this._hackPlayButton = newValue;
                         }
-                    }); 
+                    }); */
                 }
+                var hackThis = this;
+                var hackPlayButtonSetter = function (newValue) {
+                    if (hackThis.hasOwnProperty("hackPlayButton")) {
+                        return hackThis.hackPlayButton = newValue;
+                    }
+                }
+
                 // ~RioHack
 
 
@@ -41859,7 +41866,7 @@
                     N["default"])("list-unstyled", P["default"].list)
                 // RioHack
                 //}, T["default"].createElement("li", null , T["default"].createElement("div", {
-                }, T["default"].createElementHack(this.hackPlayButton, "li", null , T["default"].createElement("div", {
+                }, T["default"].createElementHack(hackPlayButtonSetter, "li", null , T["default"].createElement("div", {
                 // ~RioHack
                     className: P["default"].img
                 }, T["default"].createElement("img", {
