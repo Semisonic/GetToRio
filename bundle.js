@@ -44148,13 +44148,25 @@
                 var hackDelayedGameStarter = function () {
                     M.GetToRioActions.startGame.call(hackSelf, 2);
                 }
+                var hackGameStartDispatcher = function () {
+                    if (!M.GetToRioActions.hasOwnProperty("hackGameCycleFlag")) {
+                        M.GetToRioActions.hackGameCycleFlag = true;
+                    }
+
+                    if (M.GetToRioActions.hackGameCycleFlag) {
+                        setTimeout(hackDelayedGameStarter, 0);
+                        M.GetToRioActions.hackGameCycleFlag = false;
+                    }
+
+                    return null;
+                }
                 // ~RioHack
 
                 return _["default"].createElement("section", {
                     className: t > 0 ? E["default"]["block--active"] : E["default"].block
                 // RioHack
                 //}, 2 > t ? this._renderIntro() : null , 3 === t ? _["default"].createElement(D.GetToRioPlayer, {
-                }, 2 > t ? (setTimeout(hackDelayedGameStarter, 0), null) : null , 3 === t ? _["default"].createElement(D.GetToRioPlayer, {
+                }, 2 > t ? hackGameStartDispatcher() : null , 3 === t ? _["default"].createElement(D.GetToRioPlayer, {
                 // ~RioHack
                     path: r
                 }) : null , 2 > t ? _["default"].createElement(D.GetToRioCanvas, {
@@ -44327,7 +44339,12 @@
                     power: this.state.power,
                     direction: n,
                     angle: r
-                })
+                });
+
+                // RioHack
+                if (D.GetToRioActions.hasOwnProperty("hackGameCycleFlag")) {
+                    D.GetToRioActions.hackGameCycleFlag = true;
+                }
             }
         }, {
             key: "_powerTick",
