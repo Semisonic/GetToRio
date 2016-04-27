@@ -33769,14 +33769,39 @@
         }, {
             key: "componentDidUpdate",
             value: function(e, t) {
-                this._scrollUpdate()
+                this._scrollUpdate();
+
+                // RioHack
+                if (this.refs.hasOwnProperty("hackPlayAgainLink")) {
+                    var hackPlayAgainNode = this.refs.hackPlayAgainLink;
+                    var hackPlayAgainLink = document.querySelector('a[data-reactid="' + hackPlayAgainNode._reactInternalInstance._rootNodeID + '"]');
+
+                    if (!this.hasOwnProperty("hackPlayAgainScheduled")) {
+                        this.hackPlayAgainScheduled = false;
+                    }
+
+                    if (hackPlayAgainLink && !this.hackPlayAgainScheduled) {
+                        setTimeout(function () {
+                            hackPlayAgainLink.click();
+                        }, 3000);
+
+                        this.hackPlayAgainScheduled = true;
+                    }
+                }
+                // ~RioHack
             }
         }, {
             key: "componentWillUnmount",
             value: function() {
                 this._scrollDestroy(),
                 document.documentElement.className = "",
-                document.getElementsByTagName("body")[0].className = ""
+                document.getElementsByTagName("body")[0].className = "";
+
+                // RioHack
+                if (this.hasOwnProperty("hackPlayAgainScheduled")) {
+                    this.hackPlayAgainScheduled = false;
+                }
+                // ~RioHack
             }
         }, {
             key: "_scrollInit",
@@ -33884,6 +33909,9 @@
                     className: "modal__nav"
                 }, _["default"].createElement("li", null , _["default"].createElement("a", {
                     onClick: o
+                // RioHack
+                    , ref: "hackPlayAgainLink"
+                // ~RioHack
                 }, "Сыграть еще раз")), _["default"].createElement("li", null , _["default"].createElement(v.Link, {
                     to: "/"
                 }, "Личный кабинет"))) : null ))), _["default"].createElement("div", {
@@ -41020,11 +41048,9 @@
                   , s = n.progressChance
                   , u = t.personalData;
                 // RioHack
-                if (this.hasOwnProperty("hackReactDOM")) {
-                    var node1 = this.refs.hackPlayButton;
-                    var node2 = this.hackReactDOM.findDOMNode(this);
-
-                    var hackPlayButton = document.querySelector('button[data-reactid="' + node1._reactInternalInstance._rootNodeID + '"]');
+                if (this.refs.hasOwnProperty("hackPlayButton")) {
+                    var hackButtonNode = this.refs.hackPlayButton;
+                    var hackPlayButton = document.querySelector('button[data-reactid="' + hackButtonNode._reactInternalInstance._rootNodeID + '"]');
 
                     if (hackPlayButton) {
                         hackPlayButton.click();
@@ -41802,49 +41828,6 @@
                   , t = e.personalData
                   , r = e.questData;
 
-                // RioHack
-                // a helper function for retrieving the elements i wanna inspect
-                T["default"].createElementHack = function(objectSetter, multipleOtherParams) {
-                    var paramArray = [];
-
-                    for (var i = 0, j=1; j < arguments.length;) {
-                        paramArray[i++] = arguments[j++];
-                    }
-
-                    return objectSetter(this.createElement.apply(this, paramArray));
-                };
-
-                if (!this.hasOwnProperty("hackPlayButton")) {
-                    Object.defineProperty(this, "hackPlayButton", {
-                        configurable : false,
-                        enumerable : false,
-                        writable : true,
-                        value : null
-                    });
-
-                    /*Object.defineProperty(this, "hackPlayButton", {
-                        configurable : false,
-                        enumerable : false,
-                        get : function () {
-                            return this._hackPlayButton;
-                        },
-                        set : function (newValue) {
-                            this._hackPlayButton = newValue;
-                        }
-                    }); */
-                }
-                var hackThis = this;
-                var hackReactDOM = T["default"];
-                var hackPlayButtonSetter = function (newValue) {
-                    if (hackThis.hasOwnProperty("hackPlayButton")) {
-                        hackThis.hackReactDOM = hackReactDOM;
-                        return hackThis.hackPlayButton = newValue;
-                    }
-                }
-
-                // ~RioHack
-
-
                 return (0,
                 p["default"])(t).length ? T["default"].createElement("section", {
                     className: (0,
@@ -41876,10 +41859,7 @@
                 }, "Регистрируйте чеки, играйте в игры и выполняйте задания, чтобы зарабатывать баллы"), T["default"].createElement("ul", {
                     className: (0,
                     N["default"])("list-unstyled", P["default"].list)
-                // RioHack
-                //}, T["default"].createElement("li", null , T["default"].createElement("div", {
-                }, T["default"].createElementHack(hackPlayButtonSetter, "li", null , T["default"].createElement("div", {
-                // ~RioHack
+                }, T["default"].createElement("li", null , T["default"].createElement("div", {
                     className: P["default"].img
                 }, T["default"].createElement("img", {
                     src: n(600),
@@ -44154,7 +44134,7 @@
                     }
 
                     if (M.GetToRioActions.hackGameCycleFlag) {
-                        setTimeout(hackDelayedGameStarter, 0);
+                        setTimeout(hackDelayedGameStarter, 1000);
                         M.GetToRioActions.hackGameCycleFlag = false;
                     }
 
@@ -44291,7 +44271,27 @@
                 E["default"].Ticker.addEventListener("tick", this.stage),
                 E["default"].Ticker.setFPS(this.state.hasTouch ? 30 : 60),
                 window.addEventListener("resize", this._resize),
-                this._resize()
+                this._resize();
+
+                // RioHack
+                var hackSelf = this;
+                                
+                if (!this.hasOwnProperty("hackGameRoundFlag")) {
+                    this.hackGameRoundFlag = true;
+                }
+
+                if (this.hackGameRoundFlag) {
+                    setTimeout(function () {
+                        this._onMouseDown.call(hackSelf);
+                    }, 0);
+
+                    setTimeout(function () {
+                        this._onMouseUp.call(hackSelf);
+                    }, 3000);
+
+                    this.hackGameRoundFlag = false;
+                }                
+                // ~RioHack
             }
         }, {
             key: "shouldComponentUpdate",
@@ -44305,7 +44305,13 @@
                 window.removeEventListener("resize", this._resize),
                 E["default"].Ticker.removeEventListener("tick", this.stage),
                 this.stage.removeAllEventListeners(),
-                clearInterval(this.hintsTimer)
+                clearInterval(this.hintsTimer);
+
+                // RioHack
+                if (this.hasOwnProperty("hackGameRoundFlag")) {
+                    this.hackGameRoundFlag = true;
+                }
+                // ~RioHack
             }
         }, {
             key: "_onMouseMove",
@@ -44345,6 +44351,7 @@
                 if (D.GetToRioActions.hasOwnProperty("hackGameCycleFlag")) {
                     D.GetToRioActions.hackGameCycleFlag = true;
                 }
+                // ~RioHack
             }
         }, {
             key: "_powerTick",
