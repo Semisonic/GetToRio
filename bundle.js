@@ -41821,7 +41821,7 @@
                         set : function (newValue) {
                             this._hackPlayButton = newValue;
                         }
-                    });
+                    }); 
                 }
                 // ~RioHack
 
