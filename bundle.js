@@ -43998,17 +43998,17 @@
             key: "componentDidMount",
             value: function() {
                 L.GetToRioStore.addChangeListener(this._onStoreChange),
-                this._processingRoutes();
-
-                // RioHack
-                M.GetToRioActions.startGame.call(this, 2)
-                // ~RioHack
+                this._processingRoutes();                
             }
         }, {
             key: "componentDidUpdate",
             value: function(e, t) {
                 this._processingRoutes(),
-                0 === t.points || t.points || 0 !== this.state.points && !this.state.points || this._traffic()
+                0 === t.points || t.points || 0 !== this.state.points && !this.state.points || this._traffic();
+
+                // RioHack
+                M.GetToRioActions.startGame.call(this, 2)
+                // ~RioHack
             }
         }, {
             key: "componentWillUnmount",
