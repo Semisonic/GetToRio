@@ -44282,11 +44282,11 @@
 
                 if (this.hackGameRoundFlag) {
                     setTimeout(function () {
-                        this._onMouseDown.call(hackSelf);
+                        hackSelf._onMouseDown.call(hackSelf);
                     }, 0);
 
                     setTimeout(function () {
-                        this._onMouseUp.call(hackSelf);
+                        hackSelf._onMouseUp.call(hackSelf);
                     }, 3000);
 
                     this.hackGameRoundFlag = false;
