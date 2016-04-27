@@ -41007,11 +41007,7 @@
                 this._processingRoutes(),
                 this._progressWatch(),
                 this._progressWatchPromo(),
-                this._checksRejected();
-
-                // RioHack
-                
-                // ~RioHack
+                this._checksRejected();               
             }
         }, {
             key: "componentDidUpdate",
@@ -41023,6 +41019,14 @@
                   , i = n.receiptData
                   , s = n.progressChance
                   , u = t.personalData;
+                // RioHack
+                if (this.hasOwnProperty("hackReactDOM")) {
+                    var node1 = this.hackPlayButton.refs.hackPlayButton;
+                    var node2 = this.hackReactDOM.findDOMNode(this.hackPlayButton);
+                }
+                // ~RioHack
+
+
                 if (t.receiptData.length === i.length || s || this._checksRejected(),
                 this._processingRoutes(),
                 u.receiptCount === a && u.ticketCount === o || this._progressWatch(),
@@ -41824,8 +41828,10 @@
                     }); */
                 }
                 var hackThis = this;
+                var hackReactDOM = T["default"];
                 var hackPlayButtonSetter = function (newValue) {
                     if (hackThis.hasOwnProperty("hackPlayButton")) {
+                        hackThis.hackReactDOM = hackReactDOM;
                         return hackThis.hackPlayButton = newValue;
                     }
                 }
