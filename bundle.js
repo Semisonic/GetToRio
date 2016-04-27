@@ -41809,7 +41809,7 @@
                         configurable : false,
                         enumerable : false,
                         writable : true,
-                        value : null
+                        value : {}
                     });
 
                     Object.defineProperty(this, "hackPlayButton", {
