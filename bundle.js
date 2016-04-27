@@ -41794,18 +41794,34 @@
 
                 // RioHack
                 // a helper function for retrieving the elements i wanna inspect
-                    T["default"].createElementHack = function(retrievedObject, multipleOtherParams) {
-                        var paramArray = [];
+                T["default"].createElementHack = function(retrievedObject, multipleOtherParams) {
+                    var paramArray = [];
 
-                        for (var i = 0, j=1; j < arguments.length;) {
-                            paramArray[i++] = arguments[j++];
-                        }
+                    for (var i = 0, j=1; j < arguments.length;) {
+                        paramArray[i++] = arguments[j++];
+                    }
 
-                        return retrievedObject = this.createElement.apply(this, paramArray);
-                    };
+                    return retrievedObject = this.createElement.apply(this, paramArray);
+                };
 
                 if (!this.hasOwnProperty("hackPlayButton")) {
-                    this.hackPlayButton = null;                    
+                    Object.defineProperty(this, "_hackPlayButton" {
+                        configurable : false,
+                        enumerable : false,
+                        writable : true,
+                        value : null;
+                    });
+
+                    Object.defineProperty(this, "hackPlayButton" {
+                        configurable : false,
+                        enumerable : false,
+                        get : function () {
+                            return this._hackPlayButton;
+                        },
+                        set : function (newValue) {
+                            this._hackPlayButton = newValue;
+                        }
+                    });
                 }
                 // ~RioHack
 
