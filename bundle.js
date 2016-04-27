@@ -44149,10 +44149,7 @@
 
                 return _["default"].createElement("section", {
                     className: t > 0 ? E["default"]["block--active"] : E["default"].block
-                // RioHack
-                // }, 2 > t ? this._renderIntro() : null , 3 === t ? _["default"].createElement(D.GetToRioPlayer, {
-                }, 2 > t ? null : null , 3 === t ? _["default"].createElement(D.GetToRioPlayer, {
-                // ~RioHack
+                }, 2 > t ? this._renderIntro() : null , 3 === t ? _["default"].createElement(D.GetToRioPlayer, {
                     path: r
                 }) : null , 2 > t ? _["default"].createElement(D.GetToRioCanvas, {
                     gameMode: 1 === t,
