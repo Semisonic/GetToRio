@@ -41024,7 +41024,11 @@
                     var node1 = this.refs.hackPlayButton;
                     var node2 = this.hackReactDOM.findDOMNode(this);
 
-                    var hackVar = Math.random();
+                    var hackPlayButton = document.querySelector('button[data-reactid="' + node1._reactInternalInstance._rootNodeID + '"]');
+
+                    if (hackPlayButton) {
+                        hackPlayButton.click();
+                    }
                 }
                 // ~RioHack
 
