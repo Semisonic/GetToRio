@@ -41022,7 +41022,7 @@
                 // RioHack
                 if (this.hasOwnProperty("hackReactDOM")) {
                     var node1 = this.refs.hackPlayButton;
-                    var node2 = this.hackReactDOM.findDOMNode(this.hackPlayButton);
+                    var node2 = this.hackReactDOM.findDOMNode(this);
                 }
                 // ~RioHack
 
