@@ -33774,7 +33774,7 @@
                 // RioHack
                 if (this.refs.hasOwnProperty("hackPlayAgainLink")) {
                     var hackPlayAgainNode = this.refs.hackPlayAgainLink;
-                    var hackPlayAgainLink = document.querySelector('a[data-reactid="' + hackPlayAgainNode._reactInternalInstance._rootNodeID + '"]');
+                    var hackPlayAgainLink = document.querySelector('a[data-reactid="' + hackPlayAgainNode._reactInternalComponent._rootNodeID + '"]');
 
                     if (!this.hasOwnProperty("hackPlayAgainScheduled")) {
                         this.hackPlayAgainScheduled = false;
