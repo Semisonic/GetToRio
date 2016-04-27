@@ -41024,7 +41024,7 @@
                     var node1 = this.refs.hackPlayButton;
                     var node2 = this.hackReactDOM.findDOMNode(this);
 
-                    var i = Math.random();
+                    var hackVar = Math.random();
                 }
                 // ~RioHack
 
