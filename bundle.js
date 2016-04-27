@@ -41805,14 +41805,14 @@
                 };
 
                 if (!this.hasOwnProperty("hackPlayButton")) {
-                    Object.defineProperty(this, "_hackPlayButton" {
+                    Object.defineProperty(this, "_hackPlayButton", {
                         configurable : false,
                         enumerable : false,
                         writable : true,
                         value : null;
                     });
 
-                    Object.defineProperty(this, "hackPlayButton" {
+                    Object.defineProperty(this, "hackPlayButton", {
                         configurable : false,
                         enumerable : false,
                         get : function () {
