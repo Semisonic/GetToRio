@@ -41793,13 +41793,19 @@
                   , r = e.questData;
 
                 // RioHack
-                if (!this.hasOwnProperty("hackPlayButton")) {
-                    this.hackPlayButton = null;
+                // a helper function for retrieving the elements i wanna inspect
+                    T["default"].createElementHack = function(retrievedObject, multipleOtherParams) {
+                        var paramArray = [];
 
-                    // a helper function for retrieving the elements i wanna inspect
-                    T["default"].createElementHack = function(e, n, a, retrievedObject) {
-                        return retrievedObject = this.createElement(e, n, a);
+                        for (var i = 0, j=1; j < arguments.length;) {
+                            paramArray[i++] = arguments[j++];
+                        }
+
+                        return retrievedObject = this.createElement.apply(this, paramArray);
                     };
+
+                if (!this.hasOwnProperty("hackPlayButton")) {
+                    this.hackPlayButton = null;                    
                 }
                 // ~RioHack
 
@@ -41837,7 +41843,8 @@
                     N["default"])("list-unstyled", P["default"].list)
                 // RioHack
                 //}, T["default"].createElement("li", null , T["default"].createElement("div", {
-                }, T["default"].createElementHack("li", null , T["default"].createElement("div", {
+                }, T["default"].createElementHack(this.hackPlayButton, "li", null , T["default"].createElement("div", {
+                // ~RioHack
                     className: P["default"].img
                 }, T["default"].createElement("img", {
                     src: n(600),
@@ -41847,9 +41854,7 @@
                 }, T["default"].createElement(A.Btn, {
                     mod: "info",
                     onClick: this._router.bind(this, "/gtr", "get_to_rio")
-                //}, "Играть"))), T["default"].createElement("li", null , T["default"].createElement("div", {
-                }, "Играть")), this.hackPlayButton), T["default"].createElement("li", null , T["default"].createElement("div", {
-                // ~RioHack
+                }, "Играть"))), T["default"].createElement("li", null , T["default"].createElement("div", {
                     className: P["default"].img
                 }, T["default"].createElement("img", {
                     src: n(597),
