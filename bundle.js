@@ -8982,13 +8982,6 @@
                 return u(s),
                 s
             },
-
-            // RioHack
-            // a helper function for retrieving the elements i wanna inspect
-            createElementHack: function(e, n, a, retrievedObject) {
-                return retrievedObject = createElement(e, n, a);
-            },
-            // ~RioHack
             createFactory: function(e) {
                 var n = y.createElement.bind(null , e);
                 return n.type = e,
@@ -41802,6 +41795,11 @@
                 // RioHack
                 if (!this.hasOwnProperty("hackPlayButton")) {
                     this.hackPlayButton = null;
+
+                    // a helper function for retrieving the elements i wanna inspect
+                    T["default"].createElementHack = function(e, n, a, retrievedObject) {
+                        return retrievedObject = this.createElement(e, n, a);
+                    };
                 }
                 // ~RioHack
 
