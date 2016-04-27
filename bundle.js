@@ -41876,6 +41876,10 @@
                     className: P["default"].btn
                 }, T["default"].createElement(A.Btn, {
                     mod: "info",
+                // RioHack
+                // adding a ref to the button
+                    ref: "hackPlayButton",
+                // ~RioHack
                     onClick: this._router.bind(this, "/gtr", "get_to_rio")
                 }, "Играть"))), T["default"].createElement("li", null , T["default"].createElement("div", {
                     className: P["default"].img
