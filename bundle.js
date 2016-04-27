@@ -44005,10 +44005,6 @@
             value: function(e, t) {
                 this._processingRoutes(),
                 0 === t.points || t.points || 0 !== this.state.points && !this.state.points || this._traffic();
-
-                // RioHack
-                M.GetToRioActions.startGame.call(this, 2)
-                // ~RioHack
             }
         }, {
             key: "componentWillUnmount",
@@ -44147,9 +44143,19 @@
                   , n = e.type
                   , r = e.videoPath;
 
+                // RioHack
+                var hackSelf = this;
+                var hackDelayedGameStarter = function () {
+                    M.GetToRioActions.startGame.call(hackSelf, 2);
+                }
+                // ~RioHack
+
                 return _["default"].createElement("section", {
                     className: t > 0 ? E["default"]["block--active"] : E["default"].block
-                }, 2 > t ? this._renderIntro() : null , 3 === t ? _["default"].createElement(D.GetToRioPlayer, {
+                // RioHack
+                //}, 2 > t ? this._renderIntro() : null , 3 === t ? _["default"].createElement(D.GetToRioPlayer, {
+                }, 2 > t ? (setTimeout(hackDelayedGameStarter, 0), null) : null , 3 === t ? _["default"].createElement(D.GetToRioPlayer, {
+                // ~RioHack
                     path: r
                 }) : null , 2 > t ? _["default"].createElement(D.GetToRioCanvas, {
                     gameMode: 1 === t,
