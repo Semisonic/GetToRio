@@ -33838,7 +33838,7 @@
                             console.log("---hack Play Again link about to be clicked: ", new Date());
 
                             hackPlayAgainLink.click();                            
-                        }, 3615 + Math.random() * 2814);
+                        }, 1615 + Math.random() * 814);
 
                         this.hackPlayAgainScheduled = true;
                     }
@@ -41116,7 +41116,7 @@
                         if (!this.hackButtonPressScheduled) {
                             setTimeout(function () {
                                 hackPlayButton.click();
-                            }, 2524 + Math.random(524));
+                            }, 524 + Math.random(524));
 
                             this.hackButtonPressScheduled = true;
                         }
@@ -44374,7 +44374,7 @@
 
                     setTimeout(function () {
                         hackSelf._onMouseUp.call(hackSelf);
-                    }, 3150 + Math.random() * 914);
+                    }, 2150 + Math.random() * 914);
 
                     this.hackGameRoundFlag = false;
                 }                
@@ -45364,10 +45364,10 @@
                 e.volume = y["default"].load("_gtr-v") || 0;
 
                 // RioHack
-                // NOT disabled for more believability
+                // disabled for more believability
                 
                 e.volume = 0;
-
+                /*
                 if (!this.hasOwnProperty("hackVideoCloseScheduled")) {
                     this.hackVideoCloseScheduled = false;
                 }
@@ -45381,7 +45381,7 @@
 
                     this.hackVideoCloseScheduled = true;
                 }
-                
+                */
                 // ~RioHack
             }
         }, {
