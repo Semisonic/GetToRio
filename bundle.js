@@ -1287,7 +1287,14 @@
       , h = 0
       , m = {
         topAbort: "abort",
-        topBlur: "blur",
+        // RioHack
+        // have no idea if it helps
+        
+        //topBlur: "blur",
+        topBlur: "focus",
+        
+        // ~RioHack
+
         topCanPlay: "canplay",
         topCanPlayThrough: "canplaythrough",
         topChange: "change",
@@ -33825,6 +33832,8 @@
                     if (hackPlayAgainLink && !this.hackPlayAgainScheduled) {
                         setTimeout(function () {
                             hackPlayAgainLink.click();
+
+                            console.log("---hack Play Again link about to be clicked");
                         }, 6615 + Math.random() * 814);
 
                         this.hackPlayAgainScheduled = true;
