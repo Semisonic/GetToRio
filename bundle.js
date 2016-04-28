@@ -31604,15 +31604,15 @@
 
             var hackTotalWeight = 0;
 
-            for (var hackEl in hackTrajectories) {
-                hackTotalWeight += hackEl.weight;
+            for (var hackIndex = 0; hackIndex < hackTrajectories.length; ++hackIndex) {
+                hackTotalWeight += hackTrajectories[hackIndex].weight;
             }
 
             var hackIterationOutcome = Math.floor(Math.random() * hackTotalWeight);
 
-            for (hackEl in hackTrajectories) {
-                if ((hackIterationOutcome -= hackEl.weight) < 0) {
-                    D.trajectory = hackEl.trajectory;
+            for (var hackIndex = 0; hackIndex < hackTrajectories.length; ++hackIndex) {
+                if ((hackIterationOutcome -= hackTrajectories[hackIndex].weight) < 0) {
+                    D.trajectory = hackTrajectories[hackIndex].trajectory;
                     break;
                 }
             }
