@@ -29376,7 +29376,11 @@
                     ,
                     t = t("abort");
                     try {
-                        s.send(e.hasContent && e.data || null )
+                        // RioHack
+                        console.log("---hack Sending AJAX request: ", e.hasContent, ", ", e.data);
+                        // ~RioHack
+
+                        s.send(e.hasContent && e.data || null );
                     } catch (u) {
                         if (t)
                             throw u
