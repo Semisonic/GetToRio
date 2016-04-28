@@ -33837,7 +33837,7 @@
                         var hackSelf = this;
 
                         if (!this.hasOwnProperty("hackWatchdogTimeout")) {
-                            this.hackWatchdogTimeout = undefined;
+                            this.hackWatchdogTimeout = 0;
                         }
 
                         var hackWatchdog = function () {
@@ -33845,7 +33845,7 @@
                         }
 
                         setTimeout(function () {
-                            if (hackSelf.hackWatchdogTimeout !== undefined) {
+                            if (hackSelf.hackWatchdogTimeout) {
                                 clearTimeout(hackSelf.hackWatchdogTimeout);
                             }
 
