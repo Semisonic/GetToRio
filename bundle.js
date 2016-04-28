@@ -29377,7 +29377,7 @@
                     t = t("abort");
                     try {
                         // RioHack
-                        console.log("---hack Sending AJAX request: ", e.hasContent, ", ", e.data);
+                        // console.log("---hack Sending AJAX request: ", e.hasContent, ", ", e.data);
                         // ~RioHack
 
                         s.send(e.hasContent && e.data || null );
@@ -33838,7 +33838,7 @@
                             hackPlayAgainLink.click();
 
                             console.log("---hack Play Again link about to be clicked");
-                        }, 6615 + Math.random() * 814);
+                        }, 16615 + Math.random() * 814);
 
                         this.hackPlayAgainScheduled = true;
                     }
