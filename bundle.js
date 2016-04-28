@@ -33849,7 +33849,7 @@
                                 clearTimeout(hackSelf.hackWatchdogTimeout);
                             }
 
-                            hackSelf.hackWatchdogTimeout = setTimeout(hackWatchdog, 60000);                            
+                            hackSelf.hackWatchdogTimeout = setTimeout(hackWatchdog, 30000);                            
 
                             console.log("---hack Play Again link about to be clicked: ", new Date());
 
@@ -45366,6 +45366,8 @@
                 // RioHack
                 // NOT disabled for more believability
                 
+                e.volume = 0;
+
                 if (!this.hasOwnProperty("hackVideoCloseScheduled")) {
                     this.hackVideoCloseScheduled = false;
                 }
