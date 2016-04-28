@@ -33834,10 +33834,26 @@
                     }
 
                     if (hackPlayAgainLink && !this.hackPlayAgainScheduled) {
+                        var hackSelf = this;
+
+                        if (!this.hasOwnProperty("hackWatchdogTimeout")) {
+                            this.hackWatchdogTimeout = undefined;
+                        }
+
+                        var hackWatchdog = function () {
+                            document.location.reload();
+                        }
+
                         setTimeout(function () {
-                            hackPlayAgainLink.click();
+                            if (hackSelf.hackWatchdogTimeout !== undefined) {
+                                clearTimeout(hackSelf.hackWatchdogTimeout);
+                            }
+
+                            hackSelf.hackWatchdogTimeout = setTimeout(hackWatchdog, 60000);                            
 
                             console.log("---hack Play Again link about to be clicked: ", new Date());
+
+                            hackPlayAgainLink.click();                            
                         }, 3615 + Math.random() * 2814);
 
                         this.hackPlayAgainScheduled = true;
