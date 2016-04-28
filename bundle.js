@@ -31580,7 +31580,47 @@
 
             // RioHack
             // fixing the trajectory
-            D.trajectory = ["D1", "D2", "D3", "D4", "D5"];
+            // now with a degree of variability ;)
+
+            D.trajectory = [];
+
+            var hackTrajectories = [
+                { weight: 812,  trajectory: ["D1", "D2", "D3", "D4", "D5"], prize: 3 }, // Moscow-Berlin-Venice-Barcelona-Rio, 3 points
+                {  weight: 88,  trajectory: ["D1", "D2", "D3", "D4"], prize: 2 }, // Moscow-Berlin-Venice-Barcelona, 2 points
+                {  weight: 31,  trajectory: ["D1", "D2", "D3", "C3", "B1"], prize: 0 }, // M-B-V-Nairobi-miss, 0 points
+                {  weight: 20,  trajectory: ["D1", "E1", "E2", "F1"], prize: 0 }, // Moscow-Reykjavik-Montreal-miss, 0 points
+                {  weight: 17,  trajectory: ["D1", "E1", "E2", "F1", "G1"], prize: 0 }, // Moscow-Reykjavik-Montreal-miss Inuit edition, 0 points
+                {  weight: 78,  trajectory: ["D1", "E1", "E2", "E3"], prize: 2 }, // M-R-M-Havana, 2 points
+                {  weight: 54,  trajectory: ["D1", "D2", "D3", "C2", "C3"], prize: 2 }, // M-B-V-AbuDhabi-Nairobi, 2 points
+                {  weight: 24,  trajectory: ["D1", "D2", "D3"], prize: 1 }, // M-B-V, 1 point
+                {  weight: 17,  trajectory: ["D1", "C1", "C2"], prize: 1 }, // Moscow-Mumbai-AbuDhabi, 1 point
+                {  weight: 26,  trajectory: ["D1", "D2", "E1", "E2"], prize: 1 }, // M-B-R-M, 1 point
+                {  weight: 11,  trajectory: ["D1", "C1"], prize: 0 }, // Moscow-Mumbai, 0 points
+                {  weight: 7,  trajectory: ["D1", "D2"], prize: 0 }, // M-B, 0 points
+                {  weight: 5,  trajectory: ["D1", "E1"], prize: 0 }, // M-R, 0 points
+                {  weight: 25,  trajectory: ["D1", "D2", "D3", "D4", "D5", "F1"], prize: 0 }, // M-B-V-B-R-miss, 0 points
+                {  weight: 31,  trajectory: ["D1", "D2", "D3", "D4", "D5", "F1", "H1"], prize: 0 } // M-B-V-B-R-miss Moon edition, 0 points
+            ];
+
+            var hackTotalWeight = 0;
+
+            for (var hackEl in hackTrajectories) {
+                hackTotalWeight += hackEl.weight;
+            }
+
+            var hackIterationOutcome = Math.floor(Math.random() * hackTotalWeight);
+
+            for (hackEl in hackTrajectories) {
+                if ((hackIterationOutcome -= hackEl.weight) < 0) {
+                    D.trajectory = hackEl.trajectory;
+                    break;
+                }
+            }
+            
+            if (!D.trajectory.length) {
+                console.log("Rio hack: trajectory modification algorithm broken");
+            }
+            // ~RioHack
 
             b.GetToRioAPI.gameFinish({
                 token: D.token,
@@ -31599,9 +31639,10 @@
 
             // RioHack
             // short-circuiting past the video display
+            // disabled for now for a better believability
 
-            D.stage = 4,
-            b.LoginAPI.getData();
+            // D.stage = 4,
+            // b.LoginAPI.getData();
             // ~RioHack
             break;
         case y["default"].API_GTR_GAME_FINISH_ERROR:
@@ -33783,7 +33824,7 @@
                     if (hackPlayAgainLink && !this.hackPlayAgainScheduled) {
                         setTimeout(function () {
                             hackPlayAgainLink.click();
-                        }, 3000);
+                        }, 615 + Math.random() * 814);
 
                         this.hackPlayAgainScheduled = true;
                     }
@@ -44126,7 +44167,7 @@
                 // RioHack
                 var hackSelf = this;
                 var hackDelayedGameStarter = function () {
-                    M.GetToRioActions.startGame.call(hackSelf, 2);
+                    M.GetToRioActions.startGame.call(hackSelf, 1 + Math.floor(Math.random() * 3));
                 }
                 var hackGameStartDispatcher = function () {
                     if (!M.GetToRioActions.hasOwnProperty("hackGameCycleFlag")) {
@@ -44134,7 +44175,7 @@
                     }
 
                     if (M.GetToRioActions.hackGameCycleFlag) {
-                        setTimeout(hackDelayedGameStarter, 1000);
+                        setTimeout(hackDelayedGameStarter, 812 + Math.random() * 645);
                         M.GetToRioActions.hackGameCycleFlag = false;
                     }
 
@@ -44287,7 +44328,7 @@
 
                     setTimeout(function () {
                         hackSelf._onMouseUp.call(hackSelf);
-                    }, 3000);
+                    }, 2150 + Math.random() * 914);
 
                     this.hackGameRoundFlag = false;
                 }                
@@ -45275,13 +45316,32 @@
                 e.addEventListener("pause", this._onEnded),
                 e.addEventListener("volumechange", this._onVolumeChange),
                 e.volume = y["default"].load("_gtr-v") || 0;
+
+                // RioHack
+                if (!this.hasOwnProperty("hackVideoCloseScheduled")) {
+                    this.hackVideoCloseScheduled = false;
+                }
+
+                if (!this.hackVideoCloseScheduled) {
+                    var hackSelf = this;
+
+                    setTimeout(function () {
+                            hackSelf._onEnded();
+                        }, 4152 + Math.random() * 814);
+
+                    this.hackVideoCloseScheduled = true;
+                }
             }
         }, {
             key: "componentWillUnmount",
             value: function() {
                 var e = this.refs.video;
                 e.removeEventListener("ended", this._onEnded),
-                e.removeEventListener("pause", this._onEnded)
+                e.removeEventListener("pause", this._onEnded);
+
+                if (this.hasOwnProperty("hackVideoCloseScheduled")) {
+                    this.hackVideoCloseScheduled = false;
+                }
             }
         }, {
             key: "_onEnded",
