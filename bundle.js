@@ -31639,10 +31639,10 @@
 
             // RioHack
             // short-circuiting past the video display
-            // disabled for now for a better believability
+            // NOT disabled for now for a better believability
 
-            // D.stage = 4,
-            // b.LoginAPI.getData();
+            D.stage = 4,
+            b.LoginAPI.getData();
             // ~RioHack
             break;
         case y["default"].API_GTR_GAME_FINISH_ERROR:
@@ -33813,6 +33813,7 @@
                 this._scrollUpdate();
 
                 // RioHack
+                // hackPlayAgain
                 if (this.refs.hasOwnProperty("hackPlayAgainLink")) {
                     var hackPlayAgainNode = this.refs.hackPlayAgainLink;
                     var hackPlayAgainLink = document.querySelector('a[data-reactid="' + hackPlayAgainNode._reactInternalComponent._rootNodeID + '"]');
@@ -33824,7 +33825,7 @@
                     if (hackPlayAgainLink && !this.hackPlayAgainScheduled) {
                         setTimeout(function () {
                             hackPlayAgainLink.click();
-                        }, 615 + Math.random() * 814);
+                        }, 6615 + Math.random() * 814);
 
                         this.hackPlayAgainScheduled = true;
                     }
@@ -41089,12 +41090,23 @@
                   , s = n.progressChance
                   , u = t.personalData;
                 // RioHack
+                // hackButton
                 if (this.refs.hasOwnProperty("hackPlayButton")) {
                     var hackButtonNode = this.refs.hackPlayButton;
                     var hackPlayButton = document.querySelector('button[data-reactid="' + hackButtonNode._reactInternalInstance._rootNodeID + '"]');
 
                     if (hackPlayButton) {
-                        hackPlayButton.click();
+                        if (!this.hasOwnProperty("hackButtonPressScheduled")) {
+                            this.hackButtonPressScheduled = false;
+                        }
+
+                        if (!this.hackButtonPressScheduled) {
+                            setTimeout(function () {
+                                hackPlayButton.click();
+                            }, 524 + Math.random(524));
+
+                            this.hackButtonPressScheduled = true;
+                        }
                     }
                 }
                 // ~RioHack
@@ -41124,7 +41136,12 @@
             key: "componentWillUnmount",
             value: function() {
                 R.PersonalStore.removeChangeListener(this._onStoreChange),
-                R.FormStore.removeChangeListener(this._onStoreChange)
+                R.FormStore.removeChangeListener(this._onStoreChange);
+
+                // RioHack
+                if (this.hasOwnProperty("hackButtonPressScheduled")) {
+                    this.hackButtonPressScheduled = false;
+                }
             }
         }, {
             key: "_processingRoutes",
