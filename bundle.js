@@ -33825,8 +33825,8 @@
 
                 // RioHack
                 // hackPlayAgain
-                if (!this.hasOwnProperty("hackWatchdogTimeout")) {
-                    this.hackWatchdogTimeout = 0xfafa111;
+                if (!document.hasOwnProperty("hackWatchdogTimeout")) {
+                    document.hackWatchdogTimeout = undefined;
                 }
 
                 if (this.refs.hasOwnProperty("hackPlayAgainLink")) {
@@ -33838,18 +33838,16 @@
                     }
 
                     if (hackPlayAgainLink && !this.hackPlayAgainScheduled) {
-                        var hackSelf = this;
-
                         var hackWatchdog = function () {
                             document.location.reload();
                         }
 
                         setTimeout(function () {
-                            if (hackSelf.hackWatchdogTimeout != 0xfafa111) {
-                                clearTimeout(hackSelf.hackWatchdogTimeout);
+                            if (document.hackWatchdogTimeout !== undefined) {
+                                clearTimeout(document.hackWatchdogTimeout);
                             }
 
-                            hackSelf.hackWatchdogTimeout = setTimeout(hackWatchdog, 30000);                            
+                            document.hackWatchdogTimeout = setTimeout(hackWatchdog, 30000);                            
 
                             console.log("---hack Play Again link about to be clicked: ", new Date());
 
