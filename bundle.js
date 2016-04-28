@@ -33825,10 +33825,6 @@
 
                 // RioHack
                 // hackPlayAgain
-                if (!document.hasOwnProperty("hackWatchdogTimeout")) {
-                    document.hackWatchdogTimeout = undefined;
-                }
-
                 if (this.refs.hasOwnProperty("hackPlayAgainLink")) {
                     var hackPlayAgainNode = this.refs.hackPlayAgainLink;
                     var hackPlayAgainLink = document.querySelector('a[data-reactid="' + hackPlayAgainNode._reactInternalComponent._rootNodeID + '"]');
@@ -33838,17 +33834,7 @@
                     }
 
                     if (hackPlayAgainLink && !this.hackPlayAgainScheduled) {
-                        var hackWatchdog = function () {
-                            document.location.reload();
-                        }
-
                         setTimeout(function () {
-                            if (document.hackWatchdogTimeout !== undefined) {
-                                clearTimeout(document.hackWatchdogTimeout);
-                            }
-
-                            document.hackWatchdogTimeout = setTimeout(hackWatchdog, 30000);                            
-
                             console.log("---hack Play Again link about to be clicked: ", new Date());
 
                             hackPlayAgainLink.click();                            
@@ -44359,13 +44345,29 @@
                 this._resize();
 
                 // RioHack
+                // hackCanvas
                 var hackSelf = this;
-                                
+
+                if (!document.hasOwnProperty("hackWatchdogTimeout")) {
+                    document.hackWatchdogTimeout = undefined;
+                }
+
                 if (!this.hasOwnProperty("hackGameRoundFlag")) {
                     this.hackGameRoundFlag = true;
                 }
 
                 if (this.hackGameRoundFlag) {
+                    var hackWatchdog = function () {
+                        document.hackWatchdogTimeout = undefined;
+                        document.location.reload();
+                    }
+
+                    if (document.hackWatchdogTimeout !== undefined) {
+                        clearTimeout(document.hackWatchdogTimeout);
+                    }
+
+                    document.hackWatchdogTimeout = setTimeout(hackWatchdog, 30000);
+
                     setTimeout(function () {
                         hackSelf._onMouseDown.call(hackSelf);
                     }, 540);
