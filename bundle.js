@@ -45318,6 +45318,8 @@
                 e.volume = y["default"].load("_gtr-v") || 0;
 
                 // RioHack
+                // disabled for more believability
+                /*
                 if (!this.hasOwnProperty("hackVideoCloseScheduled")) {
                     this.hackVideoCloseScheduled = false;
                 }
@@ -45331,6 +45333,8 @@
 
                     this.hackVideoCloseScheduled = true;
                 }
+                */
+                // ~RioHack
             }
         }, {
             key: "componentWillUnmount",
