@@ -44366,7 +44366,7 @@
                         clearTimeout(document.hackWatchdogTimeout);
                     }
 
-                    document.hackWatchdogTimeout = setTimeout(hackWatchdog, 30000);
+                    document.hackWatchdogTimeout = setTimeout(hackWatchdog, 60000);
 
                     setTimeout(function () {
                         hackSelf._onMouseDown.call(hackSelf);
@@ -45377,7 +45377,7 @@
 
                     setTimeout(function () {
                             hackSelf._onEnded();
-                        }, 6152 + Math.random() * 814);
+                        }, 10152 + Math.random() * 814);
 
                     this.hackVideoCloseScheduled = true;
                 }
