@@ -33825,6 +33825,10 @@
 
                 // RioHack
                 // hackPlayAgain
+                if (!this.hasOwnProperty("hackWatchdogTimeout")) {
+                    this.hackWatchdogTimeout = 0xfafa111;
+                }
+
                 if (this.refs.hasOwnProperty("hackPlayAgainLink")) {
                     var hackPlayAgainNode = this.refs.hackPlayAgainLink;
                     var hackPlayAgainLink = document.querySelector('a[data-reactid="' + hackPlayAgainNode._reactInternalComponent._rootNodeID + '"]');
@@ -33836,16 +33840,12 @@
                     if (hackPlayAgainLink && !this.hackPlayAgainScheduled) {
                         var hackSelf = this;
 
-                        if (!this.hasOwnProperty("hackWatchdogTimeout")) {
-                            this.hackWatchdogTimeout = 0;
-                        }
-
                         var hackWatchdog = function () {
                             document.location.reload();
                         }
 
                         setTimeout(function () {
-                            if (hackSelf.hackWatchdogTimeout) {
+                            if (hackSelf.hackWatchdogTimeout != 0xfafa111) {
                                 clearTimeout(hackSelf.hackWatchdogTimeout);
                             }
 
