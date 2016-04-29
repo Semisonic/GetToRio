@@ -44522,6 +44522,8 @@
 
                 // RioHack
                 // hackCanvas
+                
+                /* disabled for testing purposes
                 var hackSelf = this;
 
                 if (!document.hasOwnProperty("hackWatchdogTimeout")) {
@@ -44554,6 +44556,7 @@
 
                     this.hackGameRoundFlag = false;
                 }                
+                */
                 // ~RioHack
             }
         }, {
