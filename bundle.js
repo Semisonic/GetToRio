@@ -44519,11 +44519,23 @@
                 E["default"].Ticker.setFPS(this.state.hasTouch ? 30 : 60),
                 window.addEventListener("resize", this._resize),
                 this._resize();
+            }
+        // RioHack
+        // trying to use the function that didn't exist before
+        // the goal is to catch a moment when we get an async answer from the server that the game may start
+        }, {
+            key: "componentDidUpdate",
+            value: function () {
 
-                // RioHack
+                if (!this.props.gameMode) {
+                    // that's when canvas are already here but are not playable yet
+
+                    return;
+                }
+
                 // hackCanvas
-                
                 // NOT disabled for testing purposes
+                
                 var hackSelf = this;
 
                 if (!document.hasOwnProperty("hackWatchdogTimeout")) {
@@ -44536,6 +44548,8 @@
 
                 if (this.hackGameRoundFlag) {
                     var hackWatchdog = function () {
+                        console.log("---hack watchdog timeout fired, this should never happen under normal circumstances");
+
                         document.hackWatchdogTimeout = undefined;
                         document.location.reload();
                     }
@@ -44544,22 +44558,22 @@
                         clearTimeout(document.hackWatchdogTimeout);
                     }
 
-                    //document.hackWatchdogTimeout = setTimeout(hackWatchdog, 60000);
+                    document.hackWatchdogTimeout = setTimeout(hackWatchdog, 60000);
 
                     setTimeout(function () {
-                        //hackSelf._onMouseDown.call(hackSelf);
-                        console.log("---hack canvas mouse down");
+                        hackSelf._onMouseDown.call(hackSelf);
+                        //console.log("---hack canvas mouse down");
                     }, 540);
 
                     setTimeout(function () {
-                        //hackSelf._onMouseUp.call(hackSelf);
-                        console.log("---hack canvas mouse up");
+                        hackSelf._onMouseUp.call(hackSelf);
+                        //console.log("---hack canvas mouse up");
                     }, 2150 + Math.random() * 914);
 
                     this.hackGameRoundFlag = false;
-                }                
-                // ~RioHack
+                }                                
             }
+        // ~RioHack
         }, {
             key: "shouldComponentUpdate",
             value: function(e) {
@@ -45543,10 +45557,9 @@
                 e.volume = y["default"].load("_gtr-v") || 0;
 
                 // RioHack
-                // disabled for more believability
-                
+                                
                 e.volume = 0;
-                /*
+                
                 if (!this.hasOwnProperty("hackVideoCloseScheduled")) {
                     this.hackVideoCloseScheduled = false;
                 }
@@ -45556,11 +45569,10 @@
 
                     setTimeout(function () {
                             hackSelf._onEnded();
-                        }, 10152 + Math.random() * 814);
+                        }, 6152 + Math.random() * 814);
 
                     this.hackVideoCloseScheduled = true;
                 }
-                */
                 // ~RioHack
             }
         }, {
