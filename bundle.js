@@ -29399,7 +29399,7 @@
                     t = t("abort");
                     try {
                         // RioHack
-                        console.log("---hack Sending AJAX request: ", e.hasContent, ", ", e.data);
+                        // console.log("---hack Sending AJAX request: ", e.hasContent, ", ", e.data);
                         // ~RioHack
 
                         s.send(e.hasContent && e.data || null );
@@ -33914,11 +33914,62 @@
                     }
 
                     if (hackPlayAgainLink && !this.hackPlayAgainScheduled) {
+                        if (!document.hasOwnProperty("hackWatchdogTimeout")) {
+                            document.hackWatchdogTimeout = undefined;
+                        }
+
+                        // watchdog timeout stuff
+                        {
+                            var hackWatchdog = function () {
+                                console.log("---hack watchdog timeout fired, this should never happen under normal circumstances");
+
+                                document.hackWatchdogTimeout = undefined;
+                                document.location.reload();
+                            }
+
+                            if (document.hackWatchdogTimeout !== undefined) {
+                                clearTimeout(document.hackWatchdogTimeout);
+                            }
+                        }
+
+                        if (!document.hasOwnProperty("hackNextBreakTime")) {
+                            document.hackNextBreakTime = new Date(Date.now().getTime() + 5*60*1000);
+                        }
+
+                        if (!document.hasOwnProperty("hackNextNapTime")) {
+                            document.hackNextNapTime = new Date(Date.now().getTime() + 8*60*60*1000);
+                        }
+
+                        var hackCurrentTime = new Date();
+                        var hackTimeout = 1615 + Math.random() * 814; // regular timeout
+
+                        if (document.hackNextNapTime <= hackCurrentTime ||
+                            document.hackNextBreakTime <= hackCurrentTime) {
+                            // time for a break
+
+                            var hackNextShortSession = 54*60*1000 + Math.random() * 2*60; // sessions go from 54 to 56 minutes
+                            var hackNextLongSession = (19*60 + 30)*60*1000 + Math.random() * 90*60*1000; // long sessions last from 19.5 to 21 hours
+
+                            if (document.hackNextNapTime <= hackCurrentTime) {
+                                hackTimeout = 3*60*60*1000 + Math.random() * 90*60*1000; // nap lasts from 3 to 4.5 hours
+                                document.hackNextNapTime = new Date(hackCurrentTime.getTime() + hackTimeout + hackNextLongSession);
+
+                                console.log("---hack Time for a nap, see you at ", new Date(hackCurrentTime.getTime() + hackTimeout));
+                            } else {
+                                hackTimeout = 4*60*1000 + Math.random() * 2*60*1000; // break lasts from 4 to 6 minutes
+
+                                console.log("---hack Time for a short break, back to work at ", new Date(hackCurrentTime.getTime() + hackTimeout));
+                            }
+
+                            document.hackNextBreakTime = new Date(hackCurrentTime.getTime() + hackTimeout + hackNextShortSession);
+                        }
+
                         setTimeout(function () {
-                            console.log("---hack Play Again link about to be clicked: ", new Date());
+                            console.log("---hack The new round is starting, it's ", new Date());
+                            document.hackWatchdogTimeout = setTimeout(hackWatchdog, 60000);
 
                             hackPlayAgainLink.click();                            
-                        }, 1615 + Math.random() * 814);
+                        }, hackTimeout);
 
                         this.hackPlayAgainScheduled = true;
                     }
@@ -44381,7 +44432,7 @@
                     }
 
                     if (M.GetToRioActions.hackGameCycleFlag) {
-                        setTimeout(hackDelayedGameStarter, 1812 + Math.random() * 645);
+                        setTimeout(hackDelayedGameStarter, 812 + Math.random() * 645);
                         M.GetToRioActions.hackGameCycleFlag = false;
                     }
 
@@ -44538,28 +44589,11 @@
                 
                 var hackSelf = this;
 
-                if (!document.hasOwnProperty("hackWatchdogTimeout")) {
-                    document.hackWatchdogTimeout = undefined;
-                }
-
                 if (!this.hasOwnProperty("hackGameRoundFlag")) {
                     this.hackGameRoundFlag = true;
                 }
 
                 if (this.hackGameRoundFlag) {
-                    var hackWatchdog = function () {
-                        console.log("---hack watchdog timeout fired, this should never happen under normal circumstances");
-
-                        document.hackWatchdogTimeout = undefined;
-                        document.location.reload();
-                    }
-
-                    if (document.hackWatchdogTimeout !== undefined) {
-                        clearTimeout(document.hackWatchdogTimeout);
-                    }
-
-                    document.hackWatchdogTimeout = setTimeout(hackWatchdog, 60000);
-
                     setTimeout(function () {
                         hackSelf._onMouseDown.call(hackSelf);
                         //console.log("---hack canvas mouse down");
@@ -44568,7 +44602,7 @@
                     setTimeout(function () {
                         hackSelf._onMouseUp.call(hackSelf);
                         //console.log("---hack canvas mouse up");
-                    }, 2150 + Math.random() * 914);
+                    }, 1650 + Math.random() * 914);
 
                     this.hackGameRoundFlag = false;
                 }                                
@@ -45569,7 +45603,7 @@
 
                     setTimeout(function () {
                             hackSelf._onEnded();
-                        }, 6152 + Math.random() * 814);
+                        }, 5152 + Math.random() * 814);
 
                     this.hackVideoCloseScheduled = true;
                 }
