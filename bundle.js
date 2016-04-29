@@ -44523,7 +44523,7 @@
                 // RioHack
                 // hackCanvas
                 
-                /* disabled for testing purposes
+                 disabled for testing purposes
                 var hackSelf = this;
 
                 if (!document.hasOwnProperty("hackWatchdogTimeout")) {
@@ -44544,14 +44544,16 @@
                         clearTimeout(document.hackWatchdogTimeout);
                     }
 
-                    document.hackWatchdogTimeout = setTimeout(hackWatchdog, 60000);
+                    //document.hackWatchdogTimeout = setTimeout(hackWatchdog, 60000);
 
                     setTimeout(function () {
-                        hackSelf._onMouseDown.call(hackSelf);
+                        //hackSelf._onMouseDown.call(hackSelf);
+                        console.log("---hack canvas mouse down");
                     }, 540);
 
                     setTimeout(function () {
-                        hackSelf._onMouseUp.call(hackSelf);
+                        //hackSelf._onMouseUp.call(hackSelf);
+                        console.log("---hack canvas mouse up");
                     }, 2150 + Math.random() * 914);
 
                     this.hackGameRoundFlag = false;
