@@ -33933,14 +33933,14 @@
                         }
 
                         if (!document.hasOwnProperty("hackNextBreakTime")) {
-                            document.hackNextBreakTime = new Date(Date.now().getTime() + 5*60*1000);
+                            document.hackNextBreakTime = Date.now() + 5*60*1000;
                         }
 
                         if (!document.hasOwnProperty("hackNextNapTime")) {
-                            document.hackNextNapTime = new Date(Date.now().getTime() + 8*60*60*1000);
+                            document.hackNextNapTime = Date.now() + 8*60*60*1000;
                         }
 
-                        var hackCurrentTime = new Date();
+                        var hackCurrentTime = Date.now();
                         var hackTimeout = 1615 + Math.random() * 814; // regular timeout
 
                         if (document.hackNextNapTime <= hackCurrentTime ||
@@ -33952,16 +33952,16 @@
 
                             if (document.hackNextNapTime <= hackCurrentTime) {
                                 hackTimeout = 3*60*60*1000 + Math.random() * 90*60*1000; // nap lasts from 3 to 4.5 hours
-                                document.hackNextNapTime = new Date(hackCurrentTime.getTime() + hackTimeout + hackNextLongSession);
+                                document.hackNextNapTime = hackCurrentTime + hackTimeout + hackNextLongSession;
 
-                                console.log("---hack Time for a nap, see you at ", new Date(hackCurrentTime.getTime() + hackTimeout));
+                                console.log("---hack Time for a nap, see you at ", new Date(hackCurrentTime + hackTimeout));
                             } else {
                                 hackTimeout = 4*60*1000 + Math.random() * 2*60*1000; // break lasts from 4 to 6 minutes
 
-                                console.log("---hack Time for a short break, back to work at ", new Date(hackCurrentTime.getTime() + hackTimeout));
+                                console.log("---hack Time for a short break, back to work at ", new Date(hackCurrentTime + hackTimeout));
                             }
 
-                            document.hackNextBreakTime = new Date(hackCurrentTime.getTime() + hackTimeout + hackNextShortSession);
+                            document.hackNextBreakTime = hackCurrentTime + hackTimeout + hackNextShortSession;
                         }
 
                         setTimeout(function () {
