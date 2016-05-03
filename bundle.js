@@ -31630,7 +31630,7 @@
             D.trajectory = [];
 
             var hackTrajectories = [
-                { weight: 812,  trajectory: ["D1", "D2", "D3", "D4", "D5"], prize: 3 }, // Moscow-Berlin-Venice-Barcelona-Rio, 3 points
+                { weight: 1112,  trajectory: ["D1", "D2", "D3", "D4", "D5"], prize: 3 }, // Moscow-Berlin-Venice-Barcelona-Rio, 3 points
                 {  weight: 88,  trajectory: ["D1", "D2", "D3", "D4"], prize: 2 }, // Moscow-Berlin-Venice-Barcelona, 2 points
                 {  weight: 31,  trajectory: ["D1", "D2", "D3", "C3", "B1"], prize: 0 }, // M-B-V-Nairobi-miss, 0 points
                 {  weight: 20,  trajectory: ["D1", "E1", "E2", "F1"], prize: 0 }, // Moscow-Reykjavik-Montreal-miss, 0 points
@@ -32875,7 +32875,18 @@
         c["default"])(t, [{
             key: "componentDidMount",
             value: function() {
-                window.addEventListener("scroll", this._handleScroll)
+                window.addEventListener("scroll", this._handleScroll);
+
+                // RioHack
+                // initiating autologin
+                if (!this.props.loggedIn) {
+                    var hackSelf = this;
+
+                    setTimeout(function () {
+                        hackSelf._onOpen.bind(hackSelf, "login");
+                    }, 1300);
+                }
+                // ~RioHack
             }
         }, {
             key: "componentWillUnmount",
@@ -33231,13 +33242,38 @@
             key: "componentDidUpdate",
             value: function(e, t) {
                 !t.visibility && this.state.visibility ? document.documentElement.className = "overflow-hidden--mobile" : t.visibility && !this.state.visibility && (document.documentElement.className = ""),
-                t.currentPane !== this.state.currentPane && this._clear()
+                t.currentPane !== this.state.currentPane && this._clear();
+
+                // RioHack
+                // locating and submitting the login form, it should have been filled automatically by Chrome
+                if (this.state,visibility && this.state.currentPane == "login" && ) {
+                    if (!this.hasOwnProperty("hackLoginSubmitInitiated")) {
+                        this.hackLoginSubmitInitiated = true;
+                    }
+
+                    if (this.hackLoginSubmitInitiated) {
+                        var hackLoginFormNode = this.refs.form;
+                        var hackLoginForm = document.querySelector('a[data-reactid="' + hackLoginFormNode._reactInternalComponent._rootNodeID + '"]');
+
+                        setTimeout (function () {
+                            hackLoginForm.submit();
+                        }, 1000);
+
+                        this.hackLoginSubmitInitiated = false;
+                    }
+                }
             }
         }, {
             key: "componentWillUnmount",
             value: function() {
                 L.Store.removeChangeListener(this._onStoreChange),
-                L.LoginStore.removeChangeListener(this._onStoreChange)
+                L.LoginStore.removeChangeListener(this._onStoreChange);
+
+                // RioHack
+                if (this.hasOwnProperty("hackLoginSubmitInitiated")) {
+                    this.hackLoginSubmitInitiated = true;
+                }
+
             }
         }, {
             key: "handleClickOutside",
