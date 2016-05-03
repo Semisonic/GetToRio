@@ -33262,6 +33262,7 @@
                         this.hackLoginSubmitInitiated = false;
                     }
                 }
+                // ~RioHack
             }
         }, {
             key: "componentWillUnmount",
@@ -41370,6 +41371,7 @@
                 if (this.hasOwnProperty("hackButtonPressScheduled")) {
                     this.hackButtonPressScheduled = false;
                 }
+                // ~RioHack
             }
         }, {
             key: "_processingRoutes",
@@ -44621,8 +44623,6 @@
                 }
 
                 // hackCanvas
-                // NOT disabled for testing purposes
-                
                 var hackSelf = this;
 
                 if (!this.hasOwnProperty("hackGameRoundFlag")) {
