@@ -33246,7 +33246,7 @@
 
                 // RioHack
                 // locating and submitting the login form, it should have been filled automatically by Chrome
-                if (this.state,visibility && this.state.currentPane == "login" && ) {
+                if (this.state.visibility && this.state.currentPane == "login") {
                     if (!this.hasOwnProperty("hackLoginSubmitInitiated")) {
                         this.hackLoginSubmitInitiated = true;
                     }
