@@ -32883,7 +32883,9 @@
                     var hackSelf = this;
 
                     setTimeout(function () {
-                        hackSelf._onOpen.bind(hackSelf, "login");
+                        // calling _onOpen doesn't work for some reason
+                        // hackSelf._onOpen.bind(hackSelf, "login");
+                        M.Actions.sidebarVisibility(true, "login");
                     }, 1300);
                 }
                 // ~RioHack
@@ -33253,7 +33255,7 @@
 
                     if (this.hackLoginSubmitInitiated) {
                         var hackLoginFormNode = this.refs.form;
-                        var hackLoginForm = document.querySelector('a[data-reactid="' + hackLoginFormNode._reactInternalComponent._rootNodeID + '"]');
+                        var hackLoginForm = document.querySelector('a[data-reactid="' + hackLoginFormNode._reactInternalInstance._rootNodeID + '"]');
 
                         setTimeout (function () {
                             hackLoginForm.submit();
