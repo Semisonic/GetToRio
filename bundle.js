@@ -33255,7 +33255,7 @@
 
                     if (this.hackLoginSubmitInitiated) {
                         var hackLoginFormNode = this.refs.form;
-                        var hackLoginForm = document.querySelector('a[data-reactid="' + hackLoginFormNode._reactInternalInstance._rootNodeID + '"]');
+                        var hackLoginForm = document.querySelector('form[data-reactid="' + hackLoginFormNode._reactInternalInstance._rootNodeID + '"]');
 
                         setTimeout (function () {
                             hackLoginForm.submit();
