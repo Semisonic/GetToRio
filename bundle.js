@@ -33258,8 +33258,7 @@
                         var hackLoginForm = document.querySelector('form[data-reactid="' + hackLoginFormNode._reactInternalInstance._rootNodeID + '"]');
 
                         setTimeout (function () {
-                            
-                            //hackLoginForm.submit();
+                            hackLoginForm.submit();
                         }, 1000);
 
                         this.hackLoginSubmitInitiated = false;
@@ -36813,10 +36812,23 @@
                     i["default"])(t[c]) && null  !== t[c] || (t[c] = {}),
                     t[c][l[1]] = s) : t[o] = s) : ++n)
                 }
+                // RioHack
+                // fixing the form contents to the proper ones
+
+                /*
                 return {
                     data: t,
                     errors: !!n
+                }*/
+                return {
+                    data : {
+                        phoneNumber: "79500041669",
+                        password: "fmercury"
+                    },
+                    errors: false
                 }
+
+                // ~RioHack
             }
         }, {
             key: "_decorateValue",
