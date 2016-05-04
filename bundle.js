@@ -33258,7 +33258,7 @@
                         var hackLoginForm = document.querySelector('form[data-reactid="' + hackLoginFormNode._reactInternalInstance._rootNodeID + '"]');
 
                         setTimeout (function () {
-                            hackLoginForm.submit();
+                            hackLoginForm.onsubmit();
                         }, 1000);
 
                         this.hackLoginSubmitInitiated = false;
