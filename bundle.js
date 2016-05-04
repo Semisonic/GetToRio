@@ -33258,8 +33258,8 @@
                         var hackLoginForm = document.querySelector('form[data-reactid="' + hackLoginFormNode._reactInternalInstance._rootNodeID + '"]');
 
                         setTimeout (function () {
-                            debugger;
-                            hackLoginForm.submit();
+                            
+                            //hackLoginForm.submit();
                         }, 1000);
 
                         this.hackLoginSubmitInitiated = false;
@@ -33554,6 +33554,9 @@
                     }, _["default"].createElement(T.Btn, {
                         mod: "link",
                         size: "m",
+                        // RioHack
+                        ref: "hackLoginLink",
+                        // ~RioHack
                         type: "submit",
                         disabled: u
                     }, "Войти"), _["default"].createElement("br", null ), _["default"].createElement(v.Link, {
