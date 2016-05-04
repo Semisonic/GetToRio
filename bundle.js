@@ -32883,9 +32883,8 @@
                     var hackSelf = this;
 
                     setTimeout(function () {
-                        // calling _onOpen doesn't work for some reason
-                        // hackSelf._onOpen.bind(hackSelf, "login");
-                        M.Actions.sidebarVisibility(true, "login");
+                        hackSelf._onOpen.call(hackSelf, "login");
+                        //M.Actions.sidebarVisibility(true, "login");
                     }, 1300);
                 }
                 // ~RioHack
@@ -33261,7 +33260,7 @@
                         };
 
                         setTimeout (function () {
-                            hackSelf._onFormSubmit.bind(hackSelf, hackSubmitObject);
+                            hackSelf._onFormSubmit.call(hackSelf, hackSubmitObject);
                         }, 1000);
 
                         this.hackLoginSubmitInitiated = false;
