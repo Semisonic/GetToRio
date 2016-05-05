@@ -33991,7 +33991,7 @@
                             document.hackNextBreakTime <= hackCurrentTime) {
                             // time for a break
 
-                            var hackNextShortSession = 54*60*1000 + Math.random() * 2*60; // sessions go from 54 to 56 minutes
+                            var hackNextShortSession = 54*60*1000 + Math.random() * 2*60*1000; // sessions go from 54 to 56 minutes
                             var hackNextLongSession = (19*60 + 30)*60*1000 + Math.random() * 90*60*1000; // long sessions last from 19.5 to 21 hours
 
                             if (document.hackNextNapTime <= hackCurrentTime) {
