@@ -33981,7 +33981,7 @@
                         if (!document.hasOwnProperty("hackNextBreakTime")) {
                             document.hackNextBreakTime = +localStorage.getItem("hackNextBreakTime");
 
-                            if (document.hackNextBreakTime === null || /* local storage was empty */
+                            if (!document.hackNextBreakTime || /* local storage was empty */
                                 hackCurrentTime - document.hackNextBreakTime > 5*60*1000 /*the local storage value is too old*/) {
                                 
                                 document.hackNextBreakTime = hackCurrentTime + 55*60*1000;
@@ -33992,7 +33992,7 @@
                         if (!document.hasOwnProperty("hackNextNapTime")) {
                             document.hackNextNapTime = +localStorage.getItem("hackNextNapTime");
 
-                            if (document.hackNextNapTime === null || /* local storage was empty */
+                            if (!document.hackNextNapTime || /* local storage was empty */
                                 hackCurrentTime - document.hackNextNapTime > 4*60*60*1000 /*the local storage value is too old*/) {
                                 
                                 document.hackNextNapTime = hackCurrentTime + 16*60*60*1000;
