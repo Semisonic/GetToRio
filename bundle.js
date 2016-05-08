@@ -33976,15 +33976,30 @@
                             }
                         }
 
+                        var hackCurrentTime = Date.now();
+
                         if (!document.hasOwnProperty("hackNextBreakTime")) {
-                            document.hackNextBreakTime = Date.now() + 5*60*1000;
+                            document.hackNextBreakTime = +localStorage.getItem("hackNextBreakTime");
+
+                            if (document.hackNextBreakTime === null || /* local storage was empty */
+                                hackCurrentTime - document.hackNextBreakTime > 5*60*1000 /*the local storage value is too old*/) {
+                                
+                                document.hackNextBreakTime = hackCurrentTime + 55*60*1000;
+                                localStorage.setItem("hackNextBreakTime", document.hackNextBreakTime);
+                            }
                         }
 
                         if (!document.hasOwnProperty("hackNextNapTime")) {
-                            document.hackNextNapTime = Date.now() + 8*60*60*1000;
+                            document.hackNextNapTime = +localStorage.getItem("hackNextNapTime");
+
+                            if (document.hackNextNapTime === null || /* local storage was empty */
+                                hackCurrentTime - document.hackNextNapTime > 4*60*60*1000 /*the local storage value is too old*/) {
+                                
+                                document.hackNextNapTime = hackCurrentTime + 16*60*60*1000;
+                                localStorage.setItem("hackNextNapTime", document.hackNextNapTime);
+                            }                            
                         }
 
-                        var hackCurrentTime = Date.now();
                         var hackTimeout = 1615 + Math.random() * 814; // regular timeout
 
                         if (document.hackNextNapTime <= hackCurrentTime ||
@@ -33997,6 +34012,7 @@
                             if (document.hackNextNapTime <= hackCurrentTime) {
                                 hackTimeout = 3*60*60*1000 + Math.random() * 90*60*1000; // nap lasts from 3 to 4.5 hours
                                 document.hackNextNapTime = hackCurrentTime + hackTimeout + hackNextLongSession;
+                                localStorage.setItem("hackNextNapTime", document.hackNextNapTime);
 
                                 console.log("---hack Time for a nap, see you at ", new Date(hackCurrentTime + hackTimeout));
                             } else {
@@ -34006,6 +34022,7 @@
                             }
 
                             document.hackNextBreakTime = hackCurrentTime + hackTimeout + hackNextShortSession;
+                            localStorage.setItem("hackNextBreakTime", document.hackNextBreakTime);
                         }
 
                         setTimeout(function () {
