@@ -33984,7 +33984,7 @@
                             if (!document.hackNextBreakTime || /* local storage was empty */
                                 hackCurrentTime - document.hackNextBreakTime > 5*60*1000 /*the local storage value is too old*/) {
                                 
-                                document.hackNextBreakTime = hackCurrentTime + 55*60*1000;
+                                document.hackNextBreakTime = hackCurrentTime + 30*60*1000;
                                 localStorage.setItem("hackNextBreakTime", document.hackNextBreakTime);
                             }
                         }
