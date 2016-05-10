@@ -31635,7 +31635,8 @@
                 {  weight: 31,  trajectory: ["D1", "D2", "D3", "C3", "B1"], prize: 0 }, // M-B-V-Nairobi-miss, 0 points
                 {  weight: 20,  trajectory: ["D1", "E1", "E2", "F1"], prize: 0 }, // Moscow-Reykjavik-Montreal-miss, 0 points
                 {  weight: 17,  trajectory: ["D1", "E1", "E2", "F1", "G1"], prize: 0 }, // Moscow-Reykjavik-Montreal-miss Inuit edition, 0 points
-                {  weight: 78,  trajectory: ["D1", "E1", "E2", "E3"], prize: 2 }, // M-R-M-Havana, 2 points
+                {  weight: 25,  trajectory: ["D1", "E1", "E2", "E3"], prize: 2 }, // M-R-M-Havana, 2 points
+                {  weight: 53,  trajectory: ["D1", "D2", "D3", "D4", "E3"], prize: 2 }, // M-B-V-B-Havana, 2 points
                 {  weight: 54,  trajectory: ["D1", "D2", "D3", "C2", "C3"], prize: 2 }, // M-B-V-AbuDhabi-Nairobi, 2 points
                 {  weight: 24,  trajectory: ["D1", "D2", "D3"], prize: 1 }, // M-B-V, 1 point
                 {  weight: 17,  trajectory: ["D1", "C1", "C2"], prize: 1 }, // Moscow-Mumbai-AbuDhabi, 1 point
@@ -33965,10 +33966,10 @@
                         // watchdog timeout stuff
                         {
                             var hackWatchdog = function () {
-                                console.log("---hack watchdog timeout fired, this should never happen under normal circumstances");
+                                console.log("---hack watchdog timeout fired, something went wrong");
 
-                                document.hackWatchdogTimeout = undefined;
                                 document.location.reload();
+                                document.hackWatchdogTimeout = setTimeout(hackWatchdog, 60000);
                             }
 
                             if (document.hackWatchdogTimeout !== undefined) {
