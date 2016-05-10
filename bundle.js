@@ -33965,11 +33965,17 @@
 
                         // watchdog timeout stuff
                         {
-                            var hackWatchdog = function () {
-                                console.log("---hack watchdog timeout fired, something went wrong");
+                            var hackWatchdog = function (helperMode) {
+                                if (helperMode) {
+                                    console.log("---hack setting up watchdog timer after a reload");
 
-                                document.location.reload();
-                                document.hackWatchdogTimeout = setTimeout(hackWatchdog, 60000);
+                                    document.hackWatchdogTimeout = setTimeout(hackWatchdog.bind(null, false), 50000 + Math.random() * 10000);
+                                } else {
+                                    console.log("---hack watchdog timeout fired, something went wrong; refreshing...");
+
+                                    window.location.reload();
+                                    setTimeout(hackWatchdog.bind(null, true), 10000);
+                                }                                
                             }
 
                             if (document.hackWatchdogTimeout !== undefined) {
@@ -34028,7 +34034,7 @@
 
                         setTimeout(function () {
                             console.log("---hack The new round is starting, it's ", new Date());
-                            document.hackWatchdogTimeout = setTimeout(hackWatchdog, 60000);
+                            document.hackWatchdogTimeout = setTimeout(hackWatchdog.bind(null, false), 50000 + Math.random() * 10000);
 
                             hackPlayAgainLink.click();                            
                         }, hackTimeout);
@@ -45677,9 +45683,11 @@
                 e.removeEventListener("ended", this._onEnded),
                 e.removeEventListener("pause", this._onEnded);
 
+                // RioHack
                 if (this.hasOwnProperty("hackVideoCloseScheduled")) {
                     this.hackVideoCloseScheduled = false;
                 }
+                // ~RioHack
             }
         }, {
             key: "_onEnded",
