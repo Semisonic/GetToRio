@@ -33279,6 +33279,7 @@
                 if (this.hasOwnProperty("hackLoginSubmitInitiated")) {
                     this.hackLoginSubmitInitiated = true;
                 }
+                // ~RioHack
 
             }
         }, {
@@ -33965,17 +33966,10 @@
 
                         // watchdog timeout stuff
                         {
-                            var hackWatchdog = function (helperMode) {
-                                if (helperMode) {
-                                    console.log("---hack setting up watchdog timer after a reload");
+                            var hackWatchdog = function () {                                
+                                console.log("---hack watchdog timeout fired, something went wrong; refreshing...");
 
-                                    document.hackWatchdogTimeout = setTimeout(hackWatchdog.bind(null, false), 50000 + Math.random() * 10000);
-                                } else {
-                                    console.log("---hack watchdog timeout fired, something went wrong; refreshing...");
-
-                                    window.location.reload();
-                                    setTimeout(hackWatchdog.bind(null, true), 10000);
-                                }                                
+                                window.location.reload();
                             }
 
                             if (document.hackWatchdogTimeout !== undefined) {
@@ -34034,7 +34028,7 @@
 
                         setTimeout(function () {
                             console.log("---hack The new round is starting, it's ", new Date());
-                            document.hackWatchdogTimeout = setTimeout(hackWatchdog.bind(null, false), 50000 + Math.random() * 10000);
+                            document.hackWatchdogTimeout = setTimeout(hackWatchdog, 50000 + Math.random() * 10000);
 
                             hackPlayAgainLink.click();                            
                         }, hackTimeout);
@@ -44646,6 +44640,17 @@
         }, {
             key: "componentDidUpdate",
             value: function () {
+
+                // watchdog duplication
+                if (document.hackWatchdogTimeout === undefined) {
+                    var hackWatchdog = function () {
+                        console.log("---hack Alternative watchdog timeout, something's very wrong, reloading...");
+
+                        window.location.reload();
+                    }
+
+                    document.hackWatchdogTimeout = setTimeout(hackWatchdog, 50000 + Math.random() * 10000);
+                }
 
                 if (!this.props.gameMode) {
                     // that's when canvas are already here but are not playable yet
