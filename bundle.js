@@ -46491,7 +46491,7 @@
             key: "_onPlay",
             value: function() {
                 var e = this.refs.video;
-                e.controls = !1,
+                e.controls = true,
                 setTimeout(function() {
                     this._resize()
                 }
