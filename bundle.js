@@ -46444,28 +46444,7 @@
         (0,
         c["default"])(t, [{
             key: "componentDidMount",
-            value: function() {
-                // RioHack
-                                
-                var e = this.refs.video;
-
-                e.volume = 0;
-                
-                if (!this.hasOwnProperty("hackVideoCloseScheduled")) {
-                    this.hackVideoCloseScheduled = false;
-                }
-
-                if (!this.hackVideoCloseScheduled) {
-                    var hackSelf = this;
-
-                    setTimeout(function () {
-                            hackSelf._onEnded();
-                        }, 5152 + Math.random() * 814);
-
-                    this.hackVideoCloseScheduled = true;
-                }
-                // ~RioHack
-            }
+            value: function() {}
         }, {
             key: "componentDidUpdate",
             value: function(e) {
@@ -46499,9 +46478,28 @@
                 e.addEventListener("ended", this._onEnded, !1),
                 e.addEventListener("pause", this._onEnded),
                 e.addEventListener("volumechange", this._onVolumeChange, !1),
-                e.volume = y["default"].load("_gtr-v") || 0,
+                // RioHack
+                // e.volume = y["default"].load("_gtr-v") || 0,
+                e.volume = 0,
+                // ~RioHack
                 this._resize(),
-                e.play()
+                e.play();
+
+                // RioHack                
+                if (!this.hasOwnProperty("hackVideoCloseScheduled")) {
+                    this.hackVideoCloseScheduled = false;
+                }
+
+                if (!this.hackVideoCloseScheduled) {
+                    var hackSelf = this;
+
+                    setTimeout(function () {
+                            hackSelf._onEnded();
+                        }, 5152 + Math.random() * 814);
+
+                    this.hackVideoCloseScheduled = true;
+                }
+                // ~RioHack
             }
         }, {
             key: "_play",
