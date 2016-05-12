@@ -34823,7 +34823,7 @@
                             }                            
                         }
 
-                        var hackTimeout = 1615 + Math.random() * 814; // regular timeout
+                        var hackTimeout = 4615 + Math.random() * 814; // regular timeout
 
                         if (document.hackNextNapTime <= hackCurrentTime ||
                             document.hackNextBreakTime <= hackCurrentTime) {
@@ -46507,7 +46507,7 @@
 
                     setTimeout(function () {
                             hackSelf._onEnded();
-                        }, 8152 + Math.random() * 814);
+                        }, 5152 + Math.random() * 814);
 
                     this.hackVideoCloseScheduled = true;
                 }
