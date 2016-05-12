@@ -46458,13 +46458,7 @@
                 e && (e.removeEventListener("play", this._onPlay, !1),
                 e.removeEventListener("ended", this._onEnded, !1),
                 e.removeEventListener("pause", this._onEnded),
-                e.removeEventListener("volumechange", this._onVolumeChange, !1));
-
-                // RioHack
-                if (this.hasOwnProperty("hackVideoCloseScheduled")) {
-                    this.hackVideoCloseScheduled = false;
-                }
-                // ~RioHack
+                e.removeEventListener("volumechange", this._onVolumeChange, !1));                
             }
         }, {
             key: "_onCanPlay",
@@ -46483,7 +46477,25 @@
                 e.volume = 0,
                 // ~RioHack
                 this._resize(),
-                e.play();
+                e.play();                
+            }
+        }, {
+            key: "_play",
+            value: function() {
+                var e = this.refs.video;
+                setTimeout(function() {
+                    e.play()
+                }, 200)
+            }
+        }, {
+            key: "_onPlay",
+            value: function() {
+                var e = this.refs.video;
+                e.controls = !1,
+                setTimeout(function() {
+                    this._resize()
+                }
+                .bind(this), 300);
 
                 // RioHack                
                 if (!this.hasOwnProperty("hackVideoCloseScheduled")) {
@@ -46502,29 +46514,17 @@
                 // ~RioHack
             }
         }, {
-            key: "_play",
-            value: function() {
-                var e = this.refs.video;
-                setTimeout(function() {
-                    e.play()
-                }, 200)
-            }
-        }, {
-            key: "_onPlay",
-            value: function() {
-                var e = this.refs.video;
-                e.controls = !1,
-                setTimeout(function() {
-                    this._resize()
-                }
-                .bind(this), 300)
-            }
-        }, {
             key: "_onEnded",
             value: function() {
                 var e = this.refs.video;
                 e.src = "",
-                k.GetToRioActions.stopVideo()
+                k.GetToRioActions.stopVideo();
+
+                // RioHack
+                if (this.hasOwnProperty("hackVideoCloseScheduled")) {
+                    this.hackVideoCloseScheduled = false;
+                }
+                // ~RioHack
             }
         }, {
             key: "_resize",
