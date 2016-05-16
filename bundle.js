@@ -34799,58 +34799,99 @@
                             }
                         }
 
-                        var hackCurrentTime = Date.now();
+                        // break timeout collection
+                        {
+                            var hackBreakTimeoutCalculator = {
+                                breakDuration : function () { return Math.floor(4*60*1000 + Math.random() * 2*60*1000); }, // break lasts from 4 to 6 minutes
+                                nextBreak : function (now) { return Math.floor(now + 54*60*1000 + Math.random() * 2*60*1000); }, // sessions go from 54 to 56 minutes
+                                napDuration : function () { return Math.floor(3*60*60*1000 + Math.random() * 90*60*1000); }, // nap lasts from 3 to 4.5 hours
+                                nextNap : function (now) { return Math.floor(now + (19*60 + 30)*60*1000 + Math.random() * 90*60*1000); }, // long sessions last from 19.5 to 21 hours
 
-                        if (!document.hasOwnProperty("hackNextBreakTime")) {
-                            document.hackNextBreakTime = +localStorage.getItem("hackNextBreakTime");
-
-                            if (!document.hackNextBreakTime || /* local storage was empty */
-                                hackCurrentTime - document.hackNextBreakTime > 5*60*1000 /*the local storage value is too old*/) {
-                                
-                                document.hackNextBreakTime = hackCurrentTime + 30*60*1000;
-                                localStorage.setItem("hackNextBreakTime", document.hackNextBreakTime);
-                            }
+                                initializeBreak : function (collection, now) {
+                                    collection.breakState = false;
+                                    collection.nextBreakStateSwitch = this.nextBreak(now);
+                                },
+                                initializeNap : function (collection, now) {
+                                    collection.napState = false;
+                                    collection.nextNapStateSwitch = this.nextNap(now);
+                                }
+                            };
                         }
 
-                        if (!document.hasOwnProperty("hackNextNapTime")) {
-                            document.hackNextNapTime = +localStorage.getItem("hackNextNapTime");
+                        var hackCurrentTime = Date.now();
+                        
+                        if (!document.hasOwnProperty("hackBreakDataCollection")) {
+                            var hackBreakDataCollection = localStorage.getItem("hackBreakDataCollection");
 
-                            if (!document.hackNextNapTime || /* local storage was empty */
-                                hackCurrentTime - document.hackNextNapTime > 4*60*60*1000 /*the local storage value is too old*/) {
-                                
-                                document.hackNextNapTime = hackCurrentTime + 16*60*60*1000;
-                                localStorage.setItem("hackNextNapTime", document.hackNextNapTime);
+                            if (hackBreakDataCollection === null) {
+                                // no element in the local storage
+
+                                hackBDC = document.hackBreakDataCollection = {
+                                    lastIterationTime : hackCurrentTime
+                                };
+
+                                hackBreakTimeoutCalculator.initializeBreak(hackBDC, hackCurrentTime);
+                                hackBreakTimeoutCalculator.initializeNap(hackBDC, hackCurrentTime);
+                            } else {
+                                document.hackBreakDataCollection = JSON.parse(hackBreakDataCollection);
                             }                            
                         }
 
-                        var hackTimeout = 2615 + Math.random() * 814; // regular timeout
+                        var hackBDC = document.hackBreakDataCollection;
+                        var hackTimeout = Math.floor(2615 + Math.random() * 814); // regular timeout
+                        var hackLastIterationLength = hackCurrentTime - hackBDC.lastIterationTime;
 
-                        if (document.hackNextNapTime <= hackCurrentTime ||
-                            document.hackNextBreakTime <= hackCurrentTime) {
-                            // time for a break
+                        if (hackLastIterationLength > 60*1000) {
+                            // it wasn't a normal iteration
 
-                            var hackNextShortSession = 54*60*1000 + Math.random() * 2*60*1000; // sessions go from 54 to 56 minutes
-                            var hackNextLongSession = (19*60 + 30)*60*1000 + Math.random() * 90*60*1000; // long sessions last from 19.5 to 21 hours
-
-                            if (document.hackNextNapTime <= hackCurrentTime) {
-                                hackTimeout = 3*60*60*1000 + Math.random() * 90*60*1000; // nap lasts from 3 to 4.5 hours
-                                document.hackNextNapTime = hackCurrentTime + hackTimeout + hackNextLongSession;
-                                localStorage.setItem("hackNextNapTime", document.hackNextNapTime);
-
-                                console.log("---hack Time for a nap, see you at ", new Date(hackCurrentTime + hackTimeout));
-                            } else {
-                                hackTimeout = 4*60*1000 + Math.random() * 2*60*1000; // break lasts from 4 to 6 minutes
-
-                                console.log("---hack Time for a short break, back to work at ", new Date(hackCurrentTime + hackTimeout));
-                            }
-
-                            document.hackNextBreakTime = hackCurrentTime + hackTimeout + hackNextShortSession;
-                            localStorage.setItem("hackNextBreakTime", document.hackNextBreakTime);
+                            hackLastIterationLength = 0;
                         }
+
+                        if (hackBDC.nextNapStateSwitch <= hackCurrentTime) {
+                            if (!hackBDC.napState &&
+                                (hackBDC.nextNapStateSwitch = hackBDC.lastIterationTime + hackBreakTimeoutCalculator.napDuration()) > hackCurrentTime) {
+
+                                // we haven't been napping and the last time we were there wasn't not too long ago => switching to nap mode
+                                hackBDC.napState = true;
+                                hackTimeout = hackBDC.nextNapStateSwitch - hackCurrentTime;
+
+                                console.log("---hack Time for a nap, see you at ", new Date(hackBDC.nextNapStateSwitch));
+                            } else {
+                                // either the nap time is over or the last time we were here was so long ago that we might as well have been napping
+
+                                hackBreakTimeoutCalculator.initializeNap(hackBDC, hackCurrentTime);
+                                hackBreakTimeoutCalculator.initializeBreak(hackBDC, hackCurrentTime);                                
+                            }
+                        } else if (hackBDC.napState) {
+                            // we somehow refreshed during the nap, going to sleep again
+                            hackTimeout = hackBDC.nextNapStateSwitch - hackCurrentTime;
+                        } else if (hackBDC.nextBreakStateSwitch <= hackCurrentTime) {
+                            // we're not napping and the break state switch was triggered
+
+                            if (!hackBDC.breakState &&
+                                (hackBDC.nextBreakStateSwitch = hackBDC.lastIterationTime + hackLastIterationLength + hackBreakTimeoutCalculator.breakDuration()) > hackCurrentTime) {
+
+                                // we haven't been napping and the last time we were there wasn't not too long ago => switching to nap mode
+                                hackBDC.breakState = true;
+                                hackTimeout = hackBDC.nextBreakStateSwitch - hackCurrentTime;
+
+                                console.log("---hack Time for a short break, back to work at ", new Date(hackBDC.nextBreakStateSwitch));
+                            } else {
+                                // either the break time is over or the last time we were here was so long ago that we might as well have been on a break
+
+                                hackBreakTimeoutCalculator.initializeBreak(hackBDC, hackCurrentTime);                                
+                            }
+                        } else if (hackBDC.breakState) {
+                            // we somehow refreshed during the break, going to sleep again
+                            hackTimeout = hackBDC.nextBreakStateSwitch - hackCurrentTime;
+                        }
+
+                        hackBDC.lastIterationTime = hackCurrentTime;
+                        localStorage.setItem("hackBreakDataCollection", JSON.stringify(hackBDC));
 
                         setTimeout(function () {
                             console.log("---hack The new round is starting, it's ", new Date());
-                            document.hackWatchdogTimeout = setTimeout(hackWatchdog, 50000 + Math.random() * 10000);
+                            document.hackWatchdogTimeout = setTimeout(hackWatchdog, Math.floor(50000 + Math.random() * 10000));
 
                             hackPlayAgainLink.click();                            
                         }, hackTimeout);
