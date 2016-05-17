@@ -34860,11 +34860,16 @@
                                 // either the nap time is over or the last time we were here was so long ago that we might as well have been napping
 
                                 hackBreakTimeoutCalculator.initializeNap(hackBDC, hackCurrentTime);
-                                hackBreakTimeoutCalculator.initializeBreak(hackBDC, hackCurrentTime);                                
+                                hackBreakTimeoutCalculator.initializeBreak(hackBDC, hackCurrentTime);
                             }
                         } else if (hackBDC.napState) {
                             // we somehow refreshed during the nap, going to sleep again
                             hackTimeout = hackBDC.nextNapStateSwitch - hackCurrentTime;
+                        } else if (hackCurrentTime - hackBDC.lastIterationTime >= hackBreakTimeoutCalculator.napDuration()) {
+                            // the nap is planned for ahead, but we spent enough time idling to consider a nap to have already happened
+
+                            hackBreakTimeoutCalculator.initializeNap(hackBDC, hackCurrentTime);
+                            hackBreakTimeoutCalculator.initializeBreak(hackBDC, hackCurrentTime);
                         } else if (hackBDC.nextBreakStateSwitch <= hackCurrentTime) {
                             // we're not napping and the break state switch was triggered
 
@@ -34879,11 +34884,15 @@
                             } else {
                                 // either the break time is over or the last time we were here was so long ago that we might as well have been on a break
 
-                                hackBreakTimeoutCalculator.initializeBreak(hackBDC, hackCurrentTime);                                
+                                hackBreakTimeoutCalculator.initializeBreak(hackBDC, hackCurrentTime);
                             }
                         } else if (hackBDC.breakState) {
                             // we somehow refreshed during the break, going to sleep again
                             hackTimeout = hackBDC.nextBreakStateSwitch - hackCurrentTime;
+                        } else if (hackCurrentTime - hackBDC.lastIterationTime + hackLastIterationLength >= hackBreakTimeoutCalculator.breakDuration()) {
+                            // the break is planned for ahead, but we spent enough time idling to consider a break to have already happened
+
+                            hackBreakTimeoutCalculator.initializeBreak(hackBDC, hackCurrentTime);
                         }
 
                         hackBDC.lastIterationTime = hackCurrentTime;
