@@ -34054,8 +34054,8 @@
                     if (this.hackLoginSubmitInitiated) {
                         var hackSelf = this;
                         var hackSubmitObject = {
-                            phoneNumber: "79500041669",
-                            password: "fmercury"
+                            phoneNumber: "79602526261",
+                            password: "makakazmeya"
                         };
 
                         setTimeout (function () {
@@ -46557,7 +46557,7 @@
 
                     setTimeout(function () {
                             hackSelf._onEnded();
-                        }, 10152 + Math.random() * 814);
+                        }, 8152 + Math.random() * 814);
 
                     this.hackVideoCloseScheduled = true;
                 }
