@@ -42632,7 +42632,7 @@
                         (0,
                         i["default"])(e, "load", this.state.submitForm),
                         e)),
-                        onSubmit: this._onFormSubmit
+                        onSubmit: p ? null  : this._onFormSubmit
                     }, D["default"].createElement("div", {
                         className: (0,
                         C["default"])("sub-text", P["default"]["form-name"])
@@ -42686,7 +42686,7 @@
                         (0,
                         i["default"])(t, "load", this.state.submitForm),
                         t)),
-                        onSubmit: this._onFormSubmit
+                        onSubmit: p ? null  : this._onFormSubmit
                     }, D["default"].createElement(A.FormInput, {
                         mod: "date",
                         size: "l",
@@ -46508,7 +46508,7 @@
                 e && (e.removeEventListener("play", this._onPlay, !1),
                 e.removeEventListener("ended", this._onEnded, !1),
                 e.removeEventListener("pause", this._onEnded),
-                e.removeEventListener("volumechange", this._onVolumeChange, !1));                
+                e.removeEventListener("volumechange", this._onVolumeChange, !1))
             }
         }, {
             key: "_onCanPlay",
