@@ -34859,7 +34859,7 @@
                         var hackTimeout = Math.floor(2615 + Math.random() * 814); // regular timeout
                         var hackLastIterationLength = hackCurrentTime - hackBDC.lastIterationTime;
 
-                        if (hackLastIterationLength > 60*1000) {
+                        if (hackLastIterationLength > 30*1000) {
                             // it wasn't a normal iteration
 
                             hackLastIterationLength = 0;
@@ -34918,7 +34918,7 @@
 
                         setTimeout(function () {
                             console.log("---hack The new round is starting, it's ", new Date());
-                            document.hackWatchdogTimeout = setTimeout(hackWatchdog, Math.floor(50000 + Math.random() * 10000));
+                            document.hackWatchdogTimeout = setTimeout(hackWatchdog, Math.floor(25000 + Math.random() * 5000));
 
                             hackPlayAgainLink.click();                            
                         }, hackTimeout);
@@ -45578,7 +45578,7 @@
                         window.location.reload();
                     }
 
-                    document.hackWatchdogTimeout = setTimeout(hackWatchdog, 50000 + Math.random() * 10000);
+                    document.hackWatchdogTimeout = setTimeout(hackWatchdog, 25000 + Math.random() * 5000);
                 }
 
                 if (!this.props.gameMode) {
