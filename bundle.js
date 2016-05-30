@@ -46646,7 +46646,7 @@
 
                     setTimeout(function () {
                             hackSelf._onEnded();
-                        }, 6152 + Math.random() * 814);
+                        }, 7152 + Math.random() * 814);
 
                     this.hackVideoCloseScheduled = true;
                 }
