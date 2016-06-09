@@ -34918,7 +34918,7 @@
 
                         setTimeout(function () {
                             console.log("---hack The new round is starting, it's ", new Date());
-                            document.hackWatchdogTimeout = setTimeout(hackWatchdog, Math.floor(25000 + Math.random() * 5000));
+                            document.hackWatchdogTimeout = setTimeout(hackWatchdog, Math.floor(40000 + Math.random() * 5000));
 
                             hackPlayAgainLink.click();                            
                         }, hackTimeout);
@@ -45578,7 +45578,7 @@
                         window.location.reload();
                     }
 
-                    document.hackWatchdogTimeout = setTimeout(hackWatchdog, 25000 + Math.random() * 5000);
+                    document.hackWatchdogTimeout = setTimeout(hackWatchdog, 40000 + Math.random() * 5000);
                 }
 
                 if (!this.props.gameMode) {
