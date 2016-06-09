@@ -46637,10 +46637,11 @@
                 .bind(this), 300);
 
                 // RioHack                
+                /*
                 if (!this.hasOwnProperty("hackVideoCloseScheduled")) {
                     this.hackVideoCloseScheduled = false;
                 }
-
+                
                 if (!this.hackVideoCloseScheduled) {
                     var hackSelf = this;
 
@@ -46649,7 +46650,7 @@
                         }, 5152 + Math.random() * 814);
 
                     this.hackVideoCloseScheduled = true;
-                }
+                }*/
                 // ~RioHack
             }
         }, {
