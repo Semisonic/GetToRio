@@ -34918,7 +34918,7 @@
 
                         setTimeout(function () {
                             console.log("---hack The new round is starting, it's ", new Date());
-                            document.hackWatchdogTimeout = setTimeout(hackWatchdog, Math.floor(40000 + Math.random() * 5000));
+                            document.hackWatchdogTimeout = setTimeout(hackWatchdog, Math.floor(25000 + Math.random() * 5000));
 
                             hackPlayAgainLink.click();                            
                         }, hackTimeout);
@@ -45578,7 +45578,7 @@
                         window.location.reload();
                     }
 
-                    document.hackWatchdogTimeout = setTimeout(hackWatchdog, 40000 + Math.random() * 5000);
+                    document.hackWatchdogTimeout = setTimeout(hackWatchdog, 25000 + Math.random() * 5000);
                 }
 
                 if (!this.props.gameMode) {
@@ -46637,7 +46637,6 @@
                 .bind(this), 300);
 
                 // RioHack                
-                /*
                 if (!this.hasOwnProperty("hackVideoCloseScheduled")) {
                     this.hackVideoCloseScheduled = false;
                 }
@@ -46647,10 +46646,10 @@
 
                     setTimeout(function () {
                             hackSelf._onEnded();
-                        }, 5152 + Math.random() * 814);
+                        }, 13152 + Math.random() * 814);
 
                     this.hackVideoCloseScheduled = true;
-                }*/
+                }
                 // ~RioHack
             }
         }, {
